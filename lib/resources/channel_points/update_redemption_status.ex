@@ -38,11 +38,11 @@ defmodule TwitchApi.ChannelPoints.UpdateRedemptionStatus do
   """
 
   # ID of the Custom Reward Redemption to update, must match a Custom Reward Redemption on broadcaster_id’s channel. Maximum: 50.
-  @typep id :: %{required(:id) => String.t()}
+  @type id :: %{required(:id) => String.t()}
   # Provided broadcaster_id must match the user_id in the user OAuth token.
-  @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
+  @type broadcaster_id :: %{required(:broadcaster_id) => String.t()}
   # ID of the Custom Reward the redemptions to be updated are for.
-  @typep reward_id :: %{required(:reward_id) => String.t()}
+  @type reward_id :: %{required(:reward_id) => String.t()}
 
   @spec call(id | broadcaster_id | reward_id) ::
           {:ok, Finch.Response.t()} | {:error, Exception.t()}

@@ -32,7 +32,7 @@ defmodule TwitchApi.Extensions.CreateExtensionSecret do
   """
 
   # JWT signing activation delay for the newly created secret in seconds.Minumum: 300. Default: 300.
-  @typep delay :: %{required(:delay) => integer}
+  @type delay :: %{required(:delay) => integer}
 
   @spec call(delay) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{delay: delay}) do

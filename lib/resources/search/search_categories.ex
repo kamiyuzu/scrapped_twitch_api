@@ -33,11 +33,11 @@ defmodule TwitchApi.Search.SearchCategories do
   """
 
   # URl encoded search query
-  @typep query :: %{required(:query) => String.t()}
+  @type query :: %{required(:query) => String.t()}
   # Maximum number of objects to return.Maximum: 100.Default: 20.
-  @typep first :: %{required(:first) => integer}
+  @type first :: %{required(:first) => integer}
   # Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The cursor value specified here is from the pagination response field of a prior query.
-  @typep after_query_param :: %{required(:after_query_param) => String.t()}
+  @type after_query_param :: %{required(:after_query_param) => String.t()}
 
   @spec call(query | first | after_query_param) ::
           {:ok, Finch.Response.t()} | {:error, Exception.t()}

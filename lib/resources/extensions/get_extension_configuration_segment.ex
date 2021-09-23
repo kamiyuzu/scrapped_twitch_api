@@ -40,11 +40,11 @@ defmodule TwitchApi.Extensions.GetExtensionConfigurationSegment do
   """
 
   # The ID of the broadcaster for the configuration returned. This parameter is required if you set the segment parameter to broadcaster or developer. Do not specify this parameter if you set segment to global.
-  @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
+  @type broadcaster_id :: %{required(:broadcaster_id) => String.t()}
   # The ID of the extension that contains the configuration segment you want to get.
-  @typep extension_id :: %{required(:extension_id) => String.t()}
+  @type extension_id :: %{required(:extension_id) => String.t()}
   # The type of configuration segment to get. Valid values are: broadcasterdeveloperglobalYou may specify one or more segments. To specify multiple segments, include the segment parameter for each segment to get. For example, segment=broadcaster&segment=developer.
-  @typep segment :: %{required(:segment) => String.t()}
+  @type segment :: %{required(:segment) => String.t()}
 
   @spec call(broadcaster_id | extension_id | segment) ::
           {:ok, Finch.Response.t()} | {:error, Exception.t()}

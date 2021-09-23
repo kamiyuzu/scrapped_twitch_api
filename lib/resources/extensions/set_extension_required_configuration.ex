@@ -37,7 +37,7 @@ defmodule TwitchApi.Extensions.SetExtensionRequiredConfiguration do
   """
 
   # User ID of the broadcaster who has activated the specified Extension on their channel.
-  @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
+  @type broadcaster_id :: %{required(:broadcaster_id) => String.t()}
   # The version of the configuration to use with the Extension.
   @typep body_params ::
            %{

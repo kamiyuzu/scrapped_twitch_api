@@ -27,6 +27,52 @@ Continue with the instructions [here](https://github.com/direnv/direnv#setup)
 ## Library usage
 
 The library provides dynamically modules for fetching all Twitch API endpoints. The convention is: `TwitchApi.<TwitchCategory>.<Action><Endpoint>`. The convention might not be a rule since Twitch reference do not follow this rule always.
+This is an example running iex:
+
+```elixir
+iex(1)> alias TwitchApi.Users.GetUsers
+TwitchApi.Users.GetUsers
+iex(2)> GetUsers.call(%{login: "hiimkamiyuzu"})
+{:ok,
+ %Finch.Response{
+   body: "{\"data\":[{\"id\":\"61425548\",\"login\":\"hiimkamiyuzu\",\"display_name\":\"hiimkamiyuzu\",\"type\":\"\",\"broadcaster_type\":\"\",\"description\":\"\",\"profile_image_url\":\"https://static-cdn.jtvnw.net/user-default-pictures-uv/294c98b5-e34d-42cd-a8f0-140b72fba9b0-profile_image-300x300.png\",\"offline_image_url\":\"\",\"view_count\":56,\"created_at\":\"2014-04-22T20:21:11Z\"}]}",
+   headers: [
+     {"connection", "keep-alive"},
+     {"content-length", "344"},
+     {"content-type", "application/json; charset=utf-8"},
+     {"access-control-allow-origin", "*"},
+     {"ratelimit-limit", "800"},
+     {"ratelimit-remaining", "799"},
+     {"ratelimit-reset", "1632430212"},
+     {"timing-allow-origin", "https://www.twitch.tv"},
+     {"twitch-trace-id", "3b9411d4cc5dcd10b82d2f839a5cecfd"},
+     {"x-ctxlog-logid", "1-614ce883-61e26c085d4f987c0eb6b429"},
+     {"date", "Thu, 23 Sep 2021 20:50:11 GMT"},
+     {"x-served-by", "cache-sea4481-SEA, cache-mad22034-MAD"},
+     {"x-cache", "MISS, MISS"},
+     {"x-cache-hits", "0, 0"},
+     {"x-timer", "S1632430212.605339,VS0,VS0,VE180"},
+     {"vary", "Accept-Encoding"},
+     {"strict-transport-security", "max-age=300"}
+   ],
+   status: 200
+ }}
+iex(3)> h GetUsers.call                        
+
+                                 def call(map)                                  
+
+  @spec call(id() | login()) ::
+          {:ok, Finch.Response.t()} | {:error, Exception.t()}
+
+### Description:
+
+Gets information about one or more specified Twitch users. Users are identified
+by optional user IDs and/or login name.
+
+### Required authentication:
+
+OAuth or App Access Token required.
+```
 
 ## Installation
 

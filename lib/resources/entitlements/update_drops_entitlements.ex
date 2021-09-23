@@ -42,9 +42,9 @@ defmodule TwitchApi.Entitlements.UpdateDropsEntitlements do
   """
 
   # An array of unique identifiers of the entitlements to update.Maximum: 100.
-  @typep entitlement_ids :: %{required(:entitlement_ids) => list}
+  @type entitlement_ids :: %{required(:entitlement_ids) => list}
   # A fulfillment status. Valid values are "CLAIMED" or "FULFILLED".
-  @typep fulfillment_status :: %{required(:fulfillment_status) => String.t()}
+  @type fulfillment_status :: %{required(:fulfillment_status) => String.t()}
 
   @spec call(entitlement_ids | fulfillment_status) ::
           {:ok, Finch.Response.t()} | {:error, Exception.t()}

@@ -33,9 +33,9 @@ defmodule TwitchApi.Users.GetUsers do
   """
 
   # User ID. Multiple user IDs can be specified. Limit: 100.
-  @typep id :: %{required(:id) => String.t()}
+  @type id :: %{required(:id) => String.t()}
   # User login name. Multiple login names can be specified. Limit: 100.
-  @typep login :: %{required(:login) => String.t()}
+  @type login :: %{required(:login) => String.t()}
 
   @spec call(id | login) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{id: id}) do

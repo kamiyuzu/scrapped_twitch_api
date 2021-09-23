@@ -39,7 +39,7 @@ defmodule TwitchApi.ChannelPoints.CreateCustomRewards do
   """
 
   # Provided broadcaster_id must match the user_id in the user OAuth token.
-  @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
+  @type broadcaster_id :: %{required(:broadcaster_id) => String.t()}
   # The cost of the reward.
   @typep body_params ::
            %{

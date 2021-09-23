@@ -34,7 +34,7 @@ defmodule TwitchApi.Users.GetUserActiveExtensions do
   """
 
   # ID of the user whose installed extensions will be returned. Limit: 1.
-  @typep user_id :: %{required(:user_id) => String.t()}
+  @type user_id :: %{required(:user_id) => String.t()}
 
   @spec call(user_id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{user_id: user_id}) do

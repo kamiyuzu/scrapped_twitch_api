@@ -33,25 +33,25 @@ defmodule TwitchApi.Videos.GetVideos do
   """
 
   # ID of the video being queried. Limit: 100. If this is specified, you cannot use any of the optional query parameters below.
-  @typep id :: %{required(:id) => String.t()}
+  @type id :: %{required(:id) => String.t()}
   # ID of the user who owns the video. Limit 1.
-  @typep user_id :: %{required(:user_id) => String.t()}
+  @type user_id :: %{required(:user_id) => String.t()}
   # ID of the game the video is of. Limit 1.
-  @typep game_id :: %{required(:game_id) => String.t()}
+  @type game_id :: %{required(:game_id) => String.t()}
   # Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The cursor value specified here is from the pagination response field of a prior query.
-  @typep after_query_param :: %{required(:after_query_param) => String.t()}
+  @type after_query_param :: %{required(:after_query_param) => String.t()}
   # Cursor for backward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The cursor value specified here is from the pagination response field of a prior query.
-  @typep before :: %{required(:before) => String.t()}
+  @type before :: %{required(:before) => String.t()}
   # Number of values to be returned when getting videos by user or game ID. Limit: 100. Default: 20.
-  @typep first :: %{required(:first) => String.t()}
+  @type first :: %{required(:first) => String.t()}
   # Language of the video being queried. Limit: 1. A language value must be either the ISO 639-1 two-letter code for a supported stream language or “other”.
-  @typep language :: %{required(:language) => String.t()}
+  @type language :: %{required(:language) => String.t()}
   # Period during which the video was created. Valid values: "all", "day", "week", "month". Default: "all".
-  @typep period :: %{required(:period) => String.t()}
+  @type period :: %{required(:period) => String.t()}
   # Sort order of the videos. Valid values: "time", "trending", "views". Default: "time".
-  @typep sort :: %{required(:sort) => String.t()}
+  @type sort :: %{required(:sort) => String.t()}
   # Type of video. Valid values: "all", "upload", "archive", "highlight". Default: "all".
-  @typep type :: %{required(:type) => String.t()}
+  @type type :: %{required(:type) => String.t()}
 
   @spec call(
           id

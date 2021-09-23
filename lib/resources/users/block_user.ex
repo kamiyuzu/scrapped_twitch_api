@@ -35,11 +35,11 @@ defmodule TwitchApi.Users.BlockUser do
   """
 
   # User ID of the user to be blocked.
-  @typep target_user_id :: %{required(:target_user_id) => String.t()}
+  @type target_user_id :: %{required(:target_user_id) => String.t()}
   # Source context for blocking the user. Valid values: "chat", "whisper".
-  @typep source_context :: %{required(:source_context) => String.t()}
+  @type source_context :: %{required(:source_context) => String.t()}
   # Reason for blocking the user. Valid values: "spam", "harassment", or "other".
-  @typep reason :: %{required(:reason) => String.t()}
+  @type reason :: %{required(:reason) => String.t()}
 
   @spec call(target_user_id | source_context | reason) ::
           {:ok, Finch.Response.t()} | {:error, Exception.t()}

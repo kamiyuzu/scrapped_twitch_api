@@ -47,7 +47,7 @@ defmodule TwitchApi.Schedule.GetChanneliCalendar do
   """
 
   # User ID of the broadcaster who owns the channel streaming schedule.Maximum: 1
-  @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
+  @type broadcaster_id :: %{required(:broadcaster_id) => String.t()}
 
   @spec call(broadcaster_id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{broadcaster_id: broadcaster_id}) do

@@ -33,9 +33,9 @@ defmodule TwitchApi.Clips.CreateClip do
   """
 
   # ID of the stream from which the clip will be made.
-  @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
+  @type broadcaster_id :: %{required(:broadcaster_id) => String.t()}
   # If false, the clip is captured from the live stream when the API is called; otherwise, a delay is added before the clip is captured (to account for the brief delay between the broadcaster’s stream and the viewer’s experience of that stream). Default: false.
-  @typep has_delay :: %{required(:has_delay) => boolean}
+  @type has_delay :: %{required(:has_delay) => boolean}
 
   @spec call(broadcaster_id | has_delay) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{broadcaster_id: broadcaster_id}) do

@@ -38,21 +38,21 @@ defmodule TwitchApi.Clips.GetClips do
   """
 
   # ID of the broadcaster for whom clips are returned. The number of clips returned is determined by the first query-string parameter (default: 20). Results are ordered by view count.
-  @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
+  @type broadcaster_id :: %{required(:broadcaster_id) => String.t()}
   # ID of the game for which clips are returned. The number of clips returned is determined by the first query-string parameter (default: 20). Results are ordered by view count.
-  @typep game_id :: %{required(:game_id) => String.t()}
+  @type game_id :: %{required(:game_id) => String.t()}
   # ID of the clip being queried. Limit: 100.
-  @typep id :: %{required(:id) => String.t()}
+  @type id :: %{required(:id) => String.t()}
   # Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. This applies only to queries specifying broadcaster_id or game_id. The cursor value specified here is from the pagination response field of a prior query.
-  @typep after_query_param :: %{required(:after_query_param) => String.t()}
+  @type after_query_param :: %{required(:after_query_param) => String.t()}
   # Cursor for backward pagination: tells the server where to start fetching the next set of results, in a multi-page response. This applies only to queries specifying broadcaster_id or game_id. The cursor value specified here is from the pagination response field of a prior query.
-  @typep before :: %{required(:before) => String.t()}
+  @type before :: %{required(:before) => String.t()}
   # Ending date/time for returned clips, in RFC3339 format. (Note that the seconds value is ignored.) If this is specified, started_at also must be specified; otherwise, the time period is ignored.
-  @typep ended_at :: %{required(:ended_at) => String.t()}
+  @type ended_at :: %{required(:ended_at) => String.t()}
   # Maximum number of objects to return. Maximum: 100. Default: 20.
-  @typep first :: %{required(:first) => integer}
+  @type first :: %{required(:first) => integer}
   # Starting date/time for returned clips, in RFC3339 format. (The seconds value is ignored.) If this is specified, ended_at also should be specified; otherwise, the ended_at date/time will be 1 week after the started_at value.
-  @typep started_at :: %{required(:started_at) => String.t()}
+  @type started_at :: %{required(:started_at) => String.t()}
 
   @spec call(
           broadcaster_id

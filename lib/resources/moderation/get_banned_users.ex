@@ -35,15 +35,15 @@ defmodule TwitchApi.Moderation.GetBannedUsers do
   """
 
   # Provided broadcaster_id must match the user_id in the OAuth token.
-  @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
+  @type broadcaster_id :: %{required(:broadcaster_id) => String.t()}
   # Filters the results and only returns a status object for users who are banned in the channel and have a matching user_id.Multiple user IDs can be provided, e.g. /moderation/banned/events?broadcaster_id=1&user_id=2&user_id=3Maximum: 100.
-  @typep user_id :: %{required(:user_id) => String.t()}
+  @type user_id :: %{required(:user_id) => String.t()}
   # Maximum number of objects to return.Maximum: 100.Default: 1.
-  @typep first :: %{required(:first) => String.t()}
+  @type first :: %{required(:first) => String.t()}
   # Cursor for forward pagination: tells the server where to start fetching the next set of results in a multi-page response. This applies only to queries without user_id. If a user_id is specified, it supersedes any cursor/offset combinations. The cursor value specified here is from the pagination response field of a prior query.
-  @typep after_query_param :: %{required(:after_query_param) => String.t()}
+  @type after_query_param :: %{required(:after_query_param) => String.t()}
   # Cursor for backward pagination: tells the server where to start fetching the next set of results in a multi-page response. This applies only to queries without user_id. If a user_id is specified, it supersedes any cursor/offset. combinations. The cursor value specified here is from the pagination response field of a prior query.
-  @typep before :: %{required(:before) => String.t()}
+  @type before :: %{required(:before) => String.t()}
 
   @spec call(broadcaster_id | user_id | first | after_query_param | before) ::
           {:ok, Finch.Response.t()} | {:error, Exception.t()}

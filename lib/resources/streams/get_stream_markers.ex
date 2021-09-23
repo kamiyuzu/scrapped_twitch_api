@@ -34,15 +34,15 @@ defmodule TwitchApi.Streams.GetStreamMarkers do
   """
 
   # ID of the broadcaster from whose stream markers are returned.
-  @typep user_id :: %{required(:user_id) => String.t()}
+  @type user_id :: %{required(:user_id) => String.t()}
   # ID of the VOD/video whose stream markers are returned.
-  @typep video_id :: %{required(:video_id) => String.t()}
+  @type video_id :: %{required(:video_id) => String.t()}
   # Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The cursor value specified here is from the pagination response field of a prior query.
-  @typep after_query_param :: %{required(:after_query_param) => String.t()}
+  @type after_query_param :: %{required(:after_query_param) => String.t()}
   # Cursor for backward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The cursor value specified here is from the pagination response field of a prior query.
-  @typep before :: %{required(:before) => String.t()}
+  @type before :: %{required(:before) => String.t()}
   # Number of values to be returned when getting videos by user or game ID. Limit: 100. Default: 20.
-  @typep first :: %{required(:first) => String.t()}
+  @type first :: %{required(:first) => String.t()}
 
   @spec call(user_id | video_id | after_query_param | before | first) ::
           {:ok, Finch.Response.t()} | {:error, Exception.t()}

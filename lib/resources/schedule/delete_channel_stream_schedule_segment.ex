@@ -33,9 +33,9 @@ defmodule TwitchApi.Schedule.DeleteChannelStreamScheduleSegment do
   """
 
   # User ID of the broadcaster who owns the channel streaming schedule. Provided broadcaster_id must match the user_id in the user OAuth token.Maximum: 1
-  @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
+  @type broadcaster_id :: %{required(:broadcaster_id) => String.t()}
   # The ID of the streaming segment to delete.
-  @typep id :: %{required(:id) => String.t()}
+  @type id :: %{required(:id) => String.t()}
 
   @spec call(broadcaster_id | id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{broadcaster_id: broadcaster_id}) do

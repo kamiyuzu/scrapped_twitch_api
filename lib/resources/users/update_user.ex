@@ -34,7 +34,7 @@ defmodule TwitchApi.Users.UpdateUser do
   """
 
   # User’s account description
-  @typep description :: %{required(:description) => String.t()}
+  @type description :: %{required(:description) => String.t()}
 
   @spec call(description) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{description: description}) do

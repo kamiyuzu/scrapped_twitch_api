@@ -40,7 +40,7 @@ defmodule TwitchApi.Schedule.CreateChannelStreamScheduleSegment do
   """
 
   # User ID of the broadcaster who owns the channel streaming schedule. Provided broadcaster_id must match the user_id in the user OAuth token.Maximum: 1
-  @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
+  @type broadcaster_id :: %{required(:broadcaster_id) => String.t()}
   # Indicates if the scheduled broadcast is recurring weekly.
   @typep body_params ::
            %{

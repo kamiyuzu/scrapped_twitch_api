@@ -37,7 +37,7 @@ defmodule TwitchApi.Chat.GetEmoteSets do
   """
 
   # An ID that identifies the emote set. Include the parameter for each emote set you want to get. For example, emote_set_id=1234&emote_set_id=5678. You may specify a maximum of 25 IDs.
-  @typep emote_set_id :: %{required(:emote_set_id) => String.t()}
+  @type emote_set_id :: %{required(:emote_set_id) => String.t()}
 
   @spec call(emote_set_id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{emote_set_id: emote_set_id}) do

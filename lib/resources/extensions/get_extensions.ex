@@ -32,9 +32,9 @@ defmodule TwitchApi.Extensions.GetExtensions do
   """
 
   # ID of the Extension.
-  @typep extension_id :: %{required(:extension_id) => String.t()}
+  @type extension_id :: %{required(:extension_id) => String.t()}
   # The specific version of the Extension to return. If not provided, the current version is returned.
-  @typep extension_version :: %{required(:extension_version) => String.t()}
+  @type extension_version :: %{required(:extension_version) => String.t()}
 
   @spec call(extension_id | extension_version) ::
           {:ok, Finch.Response.t()} | {:error, Exception.t()}

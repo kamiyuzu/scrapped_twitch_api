@@ -35,7 +35,7 @@ defmodule TwitchApi.Channels.GetChannelEditors do
   """
 
   # Broadcaster’s user ID associated with the channel.
-  @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
+  @type broadcaster_id :: %{required(:broadcaster_id) => String.t()}
 
   @spec call(broadcaster_id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{broadcaster_id: broadcaster_id}) do

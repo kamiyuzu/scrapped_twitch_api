@@ -34,7 +34,7 @@ defmodule TwitchApi.Videos.DeleteVideos do
   """
 
   # ID of the video(s) to be deleted. Limit: 5.
-  @typep id :: %{required(:id) => String.t()}
+  @type id :: %{required(:id) => String.t()}
 
   @spec call(id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{id: id}) do

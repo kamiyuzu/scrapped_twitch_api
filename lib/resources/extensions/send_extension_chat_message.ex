@@ -38,7 +38,7 @@ defmodule TwitchApi.Extensions.SendExtensionChatMessage do
   """
 
   # User ID of the broadcaster whose channel has the Extension activated.
-  @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
+  @type broadcaster_id :: %{required(:broadcaster_id) => String.t()}
   # Client ID associated with the Extension.
   @typep body_params ::
            %{

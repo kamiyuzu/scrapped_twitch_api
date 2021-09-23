@@ -33,17 +33,17 @@ defmodule TwitchApi.Schedule.GetChannelStreamSchedule do
   """
 
   # User ID of the broadcaster who owns the channel streaming schedule.Maximum: 1
-  @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
+  @type broadcaster_id :: %{required(:broadcaster_id) => String.t()}
   # The ID of the stream segment to return.Maximum: 100.
-  @typep id :: %{required(:id) => String.t()}
+  @type id :: %{required(:id) => String.t()}
   # A timestamp in RFC3339 format to start returning stream segments from. If not specified, the current date and time is used.
-  @typep start_time :: %{required(:start_time) => String.t()}
+  @type start_time :: %{required(:start_time) => String.t()}
   # A timezone offset for the requester specified in minutes. This is recommended to ensure stream segments are returned for the correct week. For example, a timezone that is +4 hours from GMT would be “240.” If not specified, “0” is used for GMT.
-  @typep utc_offset :: %{required(:utc_offset) => String.t()}
+  @type utc_offset :: %{required(:utc_offset) => String.t()}
   # Maximum number of stream segments to return.Maximum: 25. Default: 20.
-  @typep first :: %{required(:first) => integer}
+  @type first :: %{required(:first) => integer}
   # Cursor for forward pagination: tells the server where to start fetching the next set of results in a multi-page response. The cursor value specified here is from the pagination response field of a prior query.
-  @typep after_query_param :: %{required(:after_query_param) => String.t()}
+  @type after_query_param :: %{required(:after_query_param) => String.t()}
 
   @spec call(broadcaster_id | id | start_time | utc_offset | first | after_query_param) ::
           {:ok, Finch.Response.t()} | {:error, Exception.t()}

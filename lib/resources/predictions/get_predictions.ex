@@ -33,13 +33,13 @@ defmodule TwitchApi.Predictions.GetPredictions do
   """
 
   # The broadcaster running Predictions. Provided broadcaster_id must match the user_id in the user OAuth token.Maximum: 1
-  @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
+  @type broadcaster_id :: %{required(:broadcaster_id) => String.t()}
   # ID of a Prediction. Filters results to one or more specific Predictions. Not providing one or more IDs will return the full list of Predictions for the authenticated channel.Maximum: 100
-  @typep id :: %{required(:id) => String.t()}
+  @type id :: %{required(:id) => String.t()}
   # Cursor for forward pagination: tells the server where to start fetching the next set of results in a multi-page response. The cursor value specified here is from the pagination response field of a prior query.
-  @typep after_query_param :: %{required(:after_query_param) => String.t()}
+  @type after_query_param :: %{required(:after_query_param) => String.t()}
   # Maximum number of objects to return.Maximum: 20. Default: 20.
-  @typep first :: %{required(:first) => String.t()}
+  @type first :: %{required(:first) => String.t()}
 
   @spec call(broadcaster_id | id | after_query_param | first) ::
           {:ok, Finch.Response.t()} | {:error, Exception.t()}

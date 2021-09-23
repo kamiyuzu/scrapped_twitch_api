@@ -33,13 +33,13 @@ defmodule TwitchApi.Bits.GetExtensionTransactions do
   """
 
   # ID of the Extension to list transactions for.Maximum: 1
-  @typep extension_id :: %{required(:extension_id) => String.t()}
+  @type extension_id :: %{required(:extension_id) => String.t()}
   # Transaction IDs to look up. Can include multiple to fetch multiple transactions in a single request.For example, /helix/extensions/transactions?extension_id=1234&id=1&id=2&id=3Maximum: 100.
-  @typep id :: %{required(:id) => String.t()}
+  @type id :: %{required(:id) => String.t()}
   # The cursor used to fetch the next page of data. This only applies to queries without ID. If an ID is specified, it supersedes the cursor.
-  @typep after_query_param :: %{required(:after_query_param) => String.t()}
+  @type after_query_param :: %{required(:after_query_param) => String.t()}
   # Maximum number of objects to return.Maximum: 100. Default: 20.
-  @typep first :: %{required(:first) => integer}
+  @type first :: %{required(:first) => integer}
 
   @spec call(extension_id | id | after_query_param | first) ::
           {:ok, Finch.Response.t()} | {:error, Exception.t()}

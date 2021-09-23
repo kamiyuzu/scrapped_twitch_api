@@ -33,15 +33,15 @@ defmodule TwitchApi.Schedule.UpdateChannelStreamSchedule do
   """
 
   # User ID of the broadcaster who owns the channel streaming schedule. Provided broadcaster_id must match the user_id in the user OAuth token.Maximum: 1
-  @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
+  @type broadcaster_id :: %{required(:broadcaster_id) => String.t()}
   # Indicates if Vacation Mode is enabled. Set to true to add a vacation or false to remove vacation from the channel streaming schedule.
-  @typep is_vacation_enabled :: %{required(:is_vacation_enabled) => boolean}
+  @type is_vacation_enabled :: %{required(:is_vacation_enabled) => boolean}
   # Start time for vacation specified in RFC3339 format. Required if is_vacation_enabled is set to true.
-  @typep vacation_start_time :: %{required(:vacation_start_time) => String.t()}
+  @type vacation_start_time :: %{required(:vacation_start_time) => String.t()}
   # End time for vacation specified in RFC3339 format. Required if is_vacation_enabled is set to true.
-  @typep vacation_end_time :: %{required(:vacation_end_time) => String.t()}
+  @type vacation_end_time :: %{required(:vacation_end_time) => String.t()}
   # The timezone for when the vacation is being scheduled using the IANA time zone database format. Required if is_vacation_enabled is set to true.
-  @typep timezone :: %{required(:timezone) => String.t()}
+  @type timezone :: %{required(:timezone) => String.t()}
 
   @spec call(
           broadcaster_id

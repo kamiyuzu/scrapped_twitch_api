@@ -35,7 +35,7 @@ defmodule TwitchApi.Users.UnblockUser do
   """
 
   # User ID of the user to be unblocked.
-  @typep target_user_id :: %{required(:target_user_id) => String.t()}
+  @type target_user_id :: %{required(:target_user_id) => String.t()}
 
   @spec call(target_user_id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{target_user_id: target_user_id}) do

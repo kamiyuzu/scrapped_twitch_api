@@ -34,11 +34,11 @@ defmodule TwitchApi.Streams.GetFollowedStreams do
   """
 
   # Results will only include active streams from the channels that this Twitch user follows. user_id must match the User ID in the bearer token.
-  @typep user_id :: %{required(:user_id) => String.t()}
+  @type user_id :: %{required(:user_id) => String.t()}
   # Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The cursor value specified here is from the pagination response field of a prior query.
-  @typep after_query_param :: %{required(:after_query_param) => String.t()}
+  @type after_query_param :: %{required(:after_query_param) => String.t()}
   # Maximum number of objects to return. Maximum: 100. Default: 100.
-  @typep first :: %{required(:first) => integer}
+  @type first :: %{required(:first) => integer}
 
   @spec call(user_id | after_query_param | first) ::
           {:ok, Finch.Response.t()} | {:error, Exception.t()}
