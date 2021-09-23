@@ -27,6 +27,7 @@ Continue with the instructions [here](https://github.com/direnv/direnv#setup)
 ## Library usage
 
 The library provides dynamically modules for fetching all Twitch API endpoints. The convention is: `TwitchApi.<TwitchCategory>.<Action><Endpoint>`. The convention might not be a rule since Twitch reference do not follow this rule always.
+
 This is an example running iex:
 
 ```elixir
@@ -57,7 +58,7 @@ iex(2)> GetUsers.call(%{login: "hiimkamiyuzu"})
    ],
    status: 200
  }}
-iex(3)> h GetUsers.call                        
+iex(3)> h GetUsers.call/1
 
                                  def call(map)                                  
 
@@ -72,6 +73,8 @@ by optional user IDs and/or login name.
 ### Required authentication:
 
 OAuth or App Access Token required.
+iex(4)> t GetUsers.id
+@type id() :: %{id: String.t()}
 ```
 
 ## Installation
