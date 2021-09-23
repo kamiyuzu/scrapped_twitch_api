@@ -41,11 +41,26 @@ defmodule TwitchApi.Entitlements.UpdateDropsEntitlements do
   User OAuth Token or App Access Token
   """
 
-  @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
-  def call do
+  # An array of unique identifiers of the entitlements to update.Maximum: 100.
+  @typep entitlement_ids :: %{required(:entitlement_ids) => list}
+  # A fulfillment status. Valid values are "CLAIMED" or "FULFILLED".
+  @typep fulfillment_status :: %{required(:fulfillment_status) => String.t()}
+
+  @spec call(entitlement_ids | fulfillment_status) ::
+          {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  def call(%{entitlement_ids: entitlement_ids}) do
     MyFinch.request(
       "PATCH",
-      "https://api.twitch.tv/helix/entitlements/drops",
+      "https://api.twitch.tv/helix/entitlements/drops?entitlement_ids=#{entitlement_ids}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{fulfillment_status: fulfillment_status}) do
+    MyFinch.request(
+      "PATCH",
+      "https://api.twitch.tv/helix/entitlements/drops?fulfillment_status=#{fulfillment_status}",
       Headers.config_headers(),
       nil
     )

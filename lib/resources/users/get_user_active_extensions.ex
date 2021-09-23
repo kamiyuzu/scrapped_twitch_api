@@ -33,11 +33,14 @@ defmodule TwitchApi.Users.GetUserActiveExtensions do
   Optional scope: user:read:broadcast or user:edit:broadcast
   """
 
-  @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
-  def call do
+  # ID of the user whose installed extensions will be returned. Limit: 1.
+  @typep user_id :: %{required(:user_id) => String.t()}
+
+  @spec call(user_id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  def call(%{user_id: user_id}) do
     MyFinch.request(
       "GET",
-      "https://api.twitch.tv/helix/users/extensions",
+      "https://api.twitch.tv/helix/users/extensions?user_id=#{user_id}",
       Headers.config_headers(),
       nil
     )

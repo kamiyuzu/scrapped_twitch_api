@@ -37,8 +37,15 @@ defmodule TwitchApi.Streams.GetStreamMarkers do
   @typep user_id :: %{required(:user_id) => String.t()}
   # ID of the VOD/video whose stream markers are returned.
   @typep video_id :: %{required(:video_id) => String.t()}
+  # Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The cursor value specified here is from the pagination response field of a prior query.
+  @typep after_query_param :: %{required(:after_query_param) => String.t()}
+  # Cursor for backward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The cursor value specified here is from the pagination response field of a prior query.
+  @typep before :: %{required(:before) => String.t()}
+  # Number of values to be returned when getting videos by user or game ID. Limit: 100. Default: 20.
+  @typep first :: %{required(:first) => String.t()}
 
-  @spec call(user_id | video_id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  @spec call(user_id | video_id | after_query_param | before | first) ::
+          {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{user_id: user_id}) do
     MyFinch.request(
       "GET",
@@ -52,6 +59,33 @@ defmodule TwitchApi.Streams.GetStreamMarkers do
     MyFinch.request(
       "GET",
       "https://api.twitch.tv/helix/streams/markers?video_id=#{video_id}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{after: after_query_param}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/streams/markers?after=#{after_query_param}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{before: before}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/streams/markers?before=#{before}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{first: first}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/streams/markers?first=#{first}",
       Headers.config_headers(),
       nil
     )

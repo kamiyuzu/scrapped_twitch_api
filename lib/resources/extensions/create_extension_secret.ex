@@ -31,11 +31,14 @@ defmodule TwitchApi.Extensions.CreateExtensionSecret do
 
   """
 
-  @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
-  def call do
+  # JWT signing activation delay for the newly created secret in seconds.Minumum: 300. Default: 300.
+  @typep delay :: %{required(:delay) => integer}
+
+  @spec call(delay) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  def call(%{delay: delay}) do
     MyFinch.request(
       "POST",
-      "https://api.twitch.tv/helix/extensions/jwt/secrets",
+      "https://api.twitch.tv/helix/extensions/jwt/secrets?delay=#{delay}",
       Headers.config_headers(),
       nil
     )

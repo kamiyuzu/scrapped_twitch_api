@@ -38,11 +38,70 @@ defmodule TwitchApi.Analytics.GetGameAnalytics do
   Required scope: analytics:read:games
   """
 
-  @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
-  def call do
+  # Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. This applies only to queries without game_id. If a game_id is specified, it supersedes any cursor/offset combinations. The cursor value specified here is from the pagination response field of a prior query.
+  @typep after_query_param :: %{required(:after_query_param) => String.t()}
+  # Ending date/time for returned reports, in RFC3339 format with the hours, minutes, and seconds zeroed out and the UTC timezone: YYYY-MM-DDT00:00:00Z. The report covers the entire ending date; e.g., if 2018-05-01T00:00:00Z is specified, the report covers up to 2018-05-01T23:59:59Z.If this is provided, started_at also must be specified. If ended_at is later than the default end date, the default date is used. Default: 1-2 days before the request was issued (depending on report availability).
+  @typep ended_at :: %{required(:ended_at) => String.t()}
+  # Maximum number of objects to return. Maximum: 100. Default: 20.
+  @typep first :: %{required(:first) => integer}
+  # Game ID. If this is specified, the returned URL points to an analytics report for just the specified game. If this is not specified, the response includes multiple URLs (paginated), pointing to separate analytics reports for each of the authenticated user’s games.
+  @typep game_id :: %{required(:game_id) => String.t()}
+  # Starting date/time for returned reports, in RFC3339 format with the hours, minutes, and seconds zeroed out and the UTC timezone: YYYY-MM-DDT00:00:00Z.If this is provided, ended_at also must be specified. If started_at is earlier than the default start date, the default date is used. Default: 365 days before the report was issued. The file contains one row of data per day.
+  @typep started_at :: %{required(:started_at) => String.t()}
+  # Type of analytics report that is returned. Currently, this field has no affect on the response as there is only one report type. If additional types were added, using this field would return only the URL for the specified report. Limit: 1. Valid values: "overview_v2".
+  @typep type :: %{required(:type) => String.t()}
+
+  @spec call(after_query_param | ended_at | first | game_id | started_at | type) ::
+          {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  def call(%{after: after_query_param}) do
     MyFinch.request(
       "GET",
-      "https://api.twitch.tv/helix/analytics/games",
+      "https://api.twitch.tv/helix/analytics/games?after=#{after_query_param}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{ended_at: ended_at}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/analytics/games?ended_at=#{ended_at}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{first: first}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/analytics/games?first=#{first}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{game_id: game_id}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/analytics/games?game_id=#{game_id}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{started_at: started_at}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/analytics/games?started_at=#{started_at}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{type: type}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/analytics/games?type=#{type}",
       Headers.config_headers(),
       nil
     )

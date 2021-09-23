@@ -34,12 +34,62 @@ defmodule TwitchApi.Schedule.UpdateChannelStreamSchedule do
 
   # User ID of the broadcaster who owns the channel streaming schedule. Provided broadcaster_id must match the user_id in the user OAuth token.Maximum: 1
   @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
+  # Indicates if Vacation Mode is enabled. Set to true to add a vacation or false to remove vacation from the channel streaming schedule.
+  @typep is_vacation_enabled :: %{required(:is_vacation_enabled) => boolean}
+  # Start time for vacation specified in RFC3339 format. Required if is_vacation_enabled is set to true.
+  @typep vacation_start_time :: %{required(:vacation_start_time) => String.t()}
+  # End time for vacation specified in RFC3339 format. Required if is_vacation_enabled is set to true.
+  @typep vacation_end_time :: %{required(:vacation_end_time) => String.t()}
+  # The timezone for when the vacation is being scheduled using the IANA time zone database format. Required if is_vacation_enabled is set to true.
+  @typep timezone :: %{required(:timezone) => String.t()}
 
-  @spec call(broadcaster_id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  @spec call(
+          broadcaster_id
+          | is_vacation_enabled
+          | vacation_start_time
+          | vacation_end_time
+          | timezone
+        ) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{broadcaster_id: broadcaster_id}) do
     MyFinch.request(
       "PATCH",
       "https://api.twitch.tv/helix/schedule/settings?broadcaster_id=#{broadcaster_id}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{is_vacation_enabled: is_vacation_enabled}) do
+    MyFinch.request(
+      "PATCH",
+      "https://api.twitch.tv/helix/schedule/settings?is_vacation_enabled=#{is_vacation_enabled}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{vacation_start_time: vacation_start_time}) do
+    MyFinch.request(
+      "PATCH",
+      "https://api.twitch.tv/helix/schedule/settings?vacation_start_time=#{vacation_start_time}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{vacation_end_time: vacation_end_time}) do
+    MyFinch.request(
+      "PATCH",
+      "https://api.twitch.tv/helix/schedule/settings?vacation_end_time=#{vacation_end_time}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{timezone: timezone}) do
+    MyFinch.request(
+      "PATCH",
+      "https://api.twitch.tv/helix/schedule/settings?timezone=#{timezone}",
       Headers.config_headers(),
       nil
     )

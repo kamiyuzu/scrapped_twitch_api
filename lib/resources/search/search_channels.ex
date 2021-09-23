@@ -41,12 +41,46 @@ defmodule TwitchApi.Search.SearchChannels do
 
   # URl encoded search query
   @typep query :: %{required(:query) => String.t()}
+  # Maximum number of objects to return.Maximum: 100Default: 20
+  @typep first :: %{required(:first) => integer}
+  # Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The cursor value specified here is from the pagination response field of a prior query.
+  @typep after_query_param :: %{required(:after_query_param) => String.t()}
+  # Filter results for live streams only.Default: false
+  @typep live_only :: %{required(:live_only) => boolean}
 
-  @spec call(query) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  @spec call(query | first | after_query_param | live_only) ::
+          {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{query: query}) do
     MyFinch.request(
       "GET",
       "https://api.twitch.tv/helix/search/channels?query=#{query}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{first: first}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/search/channels?first=#{first}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{after: after_query_param}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/search/channels?after=#{after_query_param}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{live_only: live_only}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/search/channels?live_only=#{live_only}",
       Headers.config_headers(),
       nil
     )

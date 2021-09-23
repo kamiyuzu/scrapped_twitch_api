@@ -44,12 +44,37 @@ defmodule TwitchApi.ChannelPoints.GetCustomReward do
 
   # Provided broadcaster_id must match the user_id in the user OAuth token.
   @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
+  # When used, this parameter filters the results and only returns reward objects for the Custom Rewards with matching ID. Maximum: 50
+  @typep id :: %{required(:id) => String.t()}
+  # When set to true, only returns custom rewards that the calling client_id can manage. Default: false.
+  @typep only_manageable_rewards :: %{required(:only_manageable_rewards) => boolean}
 
-  @spec call(broadcaster_id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  @spec call(broadcaster_id | id | only_manageable_rewards) ::
+          {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{broadcaster_id: broadcaster_id}) do
     MyFinch.request(
       "GET",
       "https://api.twitch.tv/helix/channel_points/custom_rewards?broadcaster_id=#{broadcaster_id}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{id: id}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/channel_points/custom_rewards?id=#{id}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{only_manageable_rewards: only_manageable_rewards}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/channel_points/custom_rewards?only_manageable_rewards=#{
+        only_manageable_rewards
+      }",
       Headers.config_headers(),
       nil
     )

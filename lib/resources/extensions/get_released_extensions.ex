@@ -33,12 +33,24 @@ defmodule TwitchApi.Extensions.GetReleasedExtensions do
 
   # ID of the Extension.
   @typep extension_id :: %{required(:extension_id) => String.t()}
+  # The specific version of the Extension to return. If not provided, the current version is returned.
+  @typep extension_version :: %{required(:extension_version) => String.t()}
 
-  @spec call(extension_id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  @spec call(extension_id | extension_version) ::
+          {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{extension_id: extension_id}) do
     MyFinch.request(
       "GET",
       "https://api.twitch.tv/helix/extensions/released?extension_id=#{extension_id}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{extension_version: extension_version}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/extensions/released?extension_version=#{extension_version}",
       Headers.config_headers(),
       nil
     )

@@ -11,7 +11,8 @@ defmodule TwitchApi.ApiJson.Template.Method.Args do
   """
   @spec query_params(Item.t()) :: [Query.parsed_params()]
   def query_params(item) do
-    Query.parse_query_params(item.request.query_params)
+    query_params = item.request.query_params ++ item.request.optional_query_params
+    Query.parse_query_params(query_params)
   end
 
   @doc """

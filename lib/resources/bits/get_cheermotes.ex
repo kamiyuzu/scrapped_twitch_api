@@ -36,11 +36,14 @@ defmodule TwitchApi.Bits.GetCheermotes do
   OAuth or App Access Token required.
   """
 
-  @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
-  def call do
+  # ID for the broadcaster who might own specialized Cheermotes.
+  @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
+
+  @spec call(broadcaster_id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  def call(%{broadcaster_id: broadcaster_id}) do
     MyFinch.request(
       "GET",
-      "https://api.twitch.tv/helix/bits/cheermotes",
+      "https://api.twitch.tv/helix/bits/cheermotes?broadcaster_id=#{broadcaster_id}",
       Headers.config_headers(),
       nil
     )

@@ -36,11 +36,37 @@ defmodule TwitchApi.EventSub.GetEventSubSubscriptions do
   Requires an application OAuth access token.
   """
 
-  @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
-  def call do
+  # Filter subscriptions by its status. You may specify only one status value. Valid values are: enabled — The subscription is enabled.webhook_callback_verification_pending — The subscription is pending verification of the specified callback URL.webhook_callback_verification_failed — The specified callback URL failed verification.notification_failures_exceeded — The notification delivery failure rate was too high.authorization_revoked — The authorization was revoked for one or more users specified in the Condition object.user_removed — One of the users specified in the Condition object was removed.
+  @typep status :: %{required(:status) => String.t()}
+  # Filter subscriptions by subscription type (e.g., channel.update). For a list of subscription types, see Subscription Types.
+  @typep type :: %{required(:type) => String.t()}
+  # The cursor used to get the next page of results. The pagination object in the response contains the cursor’s value.
+  @typep after_query_param :: %{required(:after_query_param) => String.t()}
+
+  @spec call(status | type | after_query_param) ::
+          {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  def call(%{status: status}) do
     MyFinch.request(
       "GET",
-      "https://api.twitch.tv/helix/eventsub/subscriptions",
+      "https://api.twitch.tv/helix/eventsub/subscriptions?status=#{status}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{type: type}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/eventsub/subscriptions?type=#{type}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{after: after_query_param}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/eventsub/subscriptions?after=#{after_query_param}",
       Headers.config_headers(),
       nil
     )

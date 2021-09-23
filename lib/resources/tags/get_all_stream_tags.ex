@@ -38,11 +38,37 @@ defmodule TwitchApi.Tags.GetAllStreamTags do
   Requires an application OAuth access token.
   """
 
-  @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
-  def call do
+  # The cursor used to get the next page of results. The pagination object in the response contains the cursor’s value.The after and tag_id query parameters are mutually exclusive.
+  @typep after_query_param :: %{required(:after_query_param) => String.t()}
+  # The maximum number of tags to return per page.Maximum: 100. Default: 20.
+  @typep first :: %{required(:first) => integer}
+  # An ID that identifies a specific tag to return. Include the query parameter for each tag you want returned. For example, tag_id=123&tag_id=456. You may specify a maximum of 100 IDs.
+  @typep tag_id :: %{required(:tag_id) => String.t()}
+
+  @spec call(after_query_param | first | tag_id) ::
+          {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  def call(%{after: after_query_param}) do
     MyFinch.request(
       "GET",
-      "https://api.twitch.tv/helix/tags/streams",
+      "https://api.twitch.tv/helix/tags/streams?after=#{after_query_param}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{first: first}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/tags/streams?first=#{first}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{tag_id: tag_id}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/tags/streams?tag_id=#{tag_id}",
       Headers.config_headers(),
       nil
     )

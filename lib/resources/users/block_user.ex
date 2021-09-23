@@ -36,12 +36,35 @@ defmodule TwitchApi.Users.BlockUser do
 
   # User ID of the user to be blocked.
   @typep target_user_id :: %{required(:target_user_id) => String.t()}
+  # Source context for blocking the user. Valid values: "chat", "whisper".
+  @typep source_context :: %{required(:source_context) => String.t()}
+  # Reason for blocking the user. Valid values: "spam", "harassment", or "other".
+  @typep reason :: %{required(:reason) => String.t()}
 
-  @spec call(target_user_id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  @spec call(target_user_id | source_context | reason) ::
+          {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{target_user_id: target_user_id}) do
     MyFinch.request(
       "PUT",
       "https://api.twitch.tv/helix/users/blocks?target_user_id=#{target_user_id}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{source_context: source_context}) do
+    MyFinch.request(
+      "PUT",
+      "https://api.twitch.tv/helix/users/blocks?source_context=#{source_context}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{reason: reason}) do
+    MyFinch.request(
+      "PUT",
+      "https://api.twitch.tv/helix/users/blocks?reason=#{reason}",
       Headers.config_headers(),
       nil
     )

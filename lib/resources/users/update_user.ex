@@ -33,11 +33,14 @@ defmodule TwitchApi.Users.UpdateUser do
   Required scope: user:edit
   """
 
-  @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
-  def call do
+  # User’s account description
+  @typep description :: %{required(:description) => String.t()}
+
+  @spec call(description) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  def call(%{description: description}) do
     MyFinch.request(
       "PUT",
-      "https://api.twitch.tv/helix/users?description=<description>",
+      "https://api.twitch.tv/helix/users?description=<description>?description=#{description}",
       Headers.config_headers(),
       nil
     )

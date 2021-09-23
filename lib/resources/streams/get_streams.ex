@@ -46,8 +46,83 @@ defmodule TwitchApi.Streams.GetStreams do
   OAuth or App Access Token required
   """
 
-  @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
-  def call do
-    MyFinch.request("GET", "https://api.twitch.tv/helix/streams", Headers.config_headers(), nil)
+  # Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The cursor value specified here is from the pagination response field of a prior query.
+  @typep after_query_param :: %{required(:after_query_param) => String.t()}
+  # Cursor for backward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The cursor value specified here is from the pagination response field of a prior query.
+  @typep before :: %{required(:before) => String.t()}
+  # Maximum number of objects to return. Maximum: 100. Default: 20.
+  @typep first :: %{required(:first) => integer}
+  # Returns streams broadcasting a specified game ID. You can specify up to 100 IDs.
+  @typep game_id :: %{required(:game_id) => String.t()}
+  # Stream language. You can specify up to 100 languages. A language value must be either the ISO 639-1 two-letter code for a supported stream language or “other”.
+  @typep language :: %{required(:language) => String.t()}
+  # Returns streams broadcast by one or more specified user IDs. You can specify up to 100 IDs.
+  @typep user_id :: %{required(:user_id) => String.t()}
+  # Returns streams broadcast by one or more specified user login names. You can specify up to 100 names.
+  @typep user_login :: %{required(:user_login) => String.t()}
+
+  @spec call(after_query_param | before | first | game_id | language | user_id | user_login) ::
+          {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  def call(%{after: after_query_param}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/streams?after=#{after_query_param}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{before: before}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/streams?before=#{before}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{first: first}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/streams?first=#{first}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{game_id: game_id}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/streams?game_id=#{game_id}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{language: language}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/streams?language=#{language}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{user_id: user_id}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/streams?user_id=#{user_id}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{user_login: user_login}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/streams?user_login=#{user_login}",
+      Headers.config_headers(),
+      nil
+    )
   end
 end

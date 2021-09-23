@@ -38,8 +38,33 @@ defmodule TwitchApi.Videos.GetVideos do
   @typep user_id :: %{required(:user_id) => String.t()}
   # ID of the game the video is of. Limit 1.
   @typep game_id :: %{required(:game_id) => String.t()}
+  # Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The cursor value specified here is from the pagination response field of a prior query.
+  @typep after_query_param :: %{required(:after_query_param) => String.t()}
+  # Cursor for backward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The cursor value specified here is from the pagination response field of a prior query.
+  @typep before :: %{required(:before) => String.t()}
+  # Number of values to be returned when getting videos by user or game ID. Limit: 100. Default: 20.
+  @typep first :: %{required(:first) => String.t()}
+  # Language of the video being queried. Limit: 1. A language value must be either the ISO 639-1 two-letter code for a supported stream language or “other”.
+  @typep language :: %{required(:language) => String.t()}
+  # Period during which the video was created. Valid values: "all", "day", "week", "month". Default: "all".
+  @typep period :: %{required(:period) => String.t()}
+  # Sort order of the videos. Valid values: "time", "trending", "views". Default: "time".
+  @typep sort :: %{required(:sort) => String.t()}
+  # Type of video. Valid values: "all", "upload", "archive", "highlight". Default: "all".
+  @typep type :: %{required(:type) => String.t()}
 
-  @spec call(id | user_id | game_id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  @spec call(
+          id
+          | user_id
+          | game_id
+          | after_query_param
+          | before
+          | first
+          | language
+          | period
+          | sort
+          | type
+        ) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{id: id}) do
     MyFinch.request(
       "GET",
@@ -62,6 +87,69 @@ defmodule TwitchApi.Videos.GetVideos do
     MyFinch.request(
       "GET",
       "https://api.twitch.tv/helix/videos?game_id=#{game_id}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{after: after_query_param}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/videos?after=#{after_query_param}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{before: before}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/videos?before=#{before}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{first: first}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/videos?first=#{first}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{language: language}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/videos?language=#{language}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{period: period}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/videos?period=#{period}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{sort: sort}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/videos?sort=#{sort}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{type: type}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/videos?type=#{type}",
       Headers.config_headers(),
       nil
     )

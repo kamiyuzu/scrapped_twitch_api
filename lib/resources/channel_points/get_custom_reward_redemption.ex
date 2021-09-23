@@ -42,8 +42,19 @@ defmodule TwitchApi.ChannelPoints.GetCustomRewardRedemption do
   @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
   # When ID is not provided, this parameter returns paginated Custom Reward Redemption objects for redemptions of the Custom Reward with ID reward_id.
   @typep reward_id :: %{required(:reward_id) => String.t()}
+  # When used, this param filters the results and only returns Custom Reward Redemption objects for the redemptions with matching ID. Maximum: 50
+  @typep id :: %{required(:id) => String.t()}
+  # When id is not provided, this param is required and filters the paginated Custom Reward Redemption objects for redemptions with the matching status. Can be one of UNFULFILLED, FULFILLED or CANCELED
+  @typep status :: %{required(:status) => String.t()}
+  # Sort order of redemptions returned when getting the paginated Custom Reward Redemption objects for a reward. One of: OLDEST, NEWEST. Default: OLDEST.
+  @typep sort :: %{required(:sort) => String.t()}
+  # Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. This applies only to queries without ID. If an ID is specified, it supersedes any cursor/offset combinations. The cursor value specified here is from the pagination response field of a prior query.
+  @typep after_query_param :: %{required(:after_query_param) => String.t()}
+  # Number of results to be returned when getting the paginated Custom Reward Redemption objects for a reward. Limit: 50. Default: 20.
+  @typep first :: %{required(:first) => integer}
 
-  @spec call(broadcaster_id | reward_id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  @spec call(broadcaster_id | reward_id | id | status | sort | after_query_param | first) ::
+          {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{broadcaster_id: broadcaster_id}) do
     MyFinch.request(
       "GET",
@@ -61,6 +72,53 @@ defmodule TwitchApi.ChannelPoints.GetCustomRewardRedemption do
       "https://api.twitch.tv/helix/channel_points/custom_rewards/redemptions?reward_id=#{
         reward_id
       }",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{id: id}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/channel_points/custom_rewards/redemptions?id=#{id}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{status: status}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/channel_points/custom_rewards/redemptions?status=#{status}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{sort: sort}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/channel_points/custom_rewards/redemptions?sort=#{sort}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{after: after_query_param}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/channel_points/custom_rewards/redemptions?after=#{
+        after_query_param
+      }",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{first: first}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/channel_points/custom_rewards/redemptions?first=#{first}",
       Headers.config_headers(),
       nil
     )

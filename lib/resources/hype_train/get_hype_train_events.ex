@@ -35,12 +35,46 @@ defmodule TwitchApi.HypeTrain.GetHypeTrainEvents do
 
   # User ID of the broadcaster. Must match the User ID in the Bearer token if User Token is used.
   @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
+  # Maximum number of objects to return. Maximum: 100. Default: 1.
+  @typep first :: %{required(:first) => integer}
+  # The id of the wanted event, if known
+  @typep id :: %{required(:id) => String.t()}
+  # Cursor for forward pagination: tells the server where to start fetching the next set of results in a multi-page response. This applies only to queries without id. If an ID is specified, it supersedes any cursor/offset combinations. The cursor value specified here is from the pagination response field of a prior query.
+  @typep cursor :: %{required(:cursor) => String.t()}
 
-  @spec call(broadcaster_id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  @spec call(broadcaster_id | first | id | cursor) ::
+          {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{broadcaster_id: broadcaster_id}) do
     MyFinch.request(
       "GET",
       "https://api.twitch.tv/helix/hypetrain/events?broadcaster_id=#{broadcaster_id}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{first: first}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/hypetrain/events?first=#{first}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{id: id}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/hypetrain/events?id=#{id}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{cursor: cursor}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/hypetrain/events?cursor=#{cursor}",
       Headers.config_headers(),
       nil
     )

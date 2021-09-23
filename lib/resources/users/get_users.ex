@@ -32,8 +32,27 @@ defmodule TwitchApi.Users.GetUsers do
   OAuth or App Access Token required.
   """
 
-  @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
-  def call do
-    MyFinch.request("GET", "https://api.twitch.tv/helix/users", Headers.config_headers(), nil)
+  # User ID. Multiple user IDs can be specified. Limit: 100.
+  @typep id :: %{required(:id) => String.t()}
+  # User login name. Multiple login names can be specified. Limit: 100.
+  @typep login :: %{required(:login) => String.t()}
+
+  @spec call(id | login) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  def call(%{id: id}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/users?id=#{id}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{login: login}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/users?login=#{login}",
+      Headers.config_headers(),
+      nil
+    )
   end
 end

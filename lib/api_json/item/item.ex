@@ -6,6 +6,7 @@ defmodule TwitchApi.ApiJson.Item do
 
   @twitch_api_scrapped_json "https://raw.githubusercontent.com/kamiyuzu/twitch_api_scraper/master/lib/fixtures/json/twitch_api.json"
 
+  alias __MODULE__
   alias TwitchApi.MyFinch
   alias TwitchApi.ApiJson.Item.{Category, Doc, Request}
 

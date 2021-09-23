@@ -33,12 +33,35 @@ defmodule TwitchApi.Extensions.GetLiveChannels do
 
   # ID of the Extension to search for.
   @typep extension_id :: %{required(:extension_id) => String.t()}
+  # Maximum number of objects to return.Maximum: 100. Default: 20.
+  @typep first :: %{required(:first) => integer}
+  # The cursor used to fetch the next page of data.
+  @typep after_query_param :: %{required(:after_query_param) => String.t()}
 
-  @spec call(extension_id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  @spec call(extension_id | first | after_query_param) ::
+          {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{extension_id: extension_id}) do
     MyFinch.request(
       "GET",
       "https://api.twitch.tv/helix/extensions/live?extension_id=#{extension_id}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{first: first}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/extensions/live?first=#{first}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{after: after_query_param}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/extensions/live?after=#{after_query_param}",
       Headers.config_headers(),
       nil
     )

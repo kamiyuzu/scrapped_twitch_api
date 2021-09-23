@@ -31,11 +31,14 @@ defmodule TwitchApi.Extensions.GetExtensionBitsProducts do
 
   """
 
-  @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
-  def call do
+  # Whether Bits products that are disabled/expired should be included in the response.Default: false.
+  @typep should_include_all :: %{required(:should_include_all) => boolean}
+
+  @spec call(should_include_all) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  def call(%{should_include_all: should_include_all}) do
     MyFinch.request(
       "GET",
-      "https://api.twitch.tv/helix/bits/extensions",
+      "https://api.twitch.tv/helix/bits/extensions?should_include_all=#{should_include_all}",
       Headers.config_headers(),
       nil
     )

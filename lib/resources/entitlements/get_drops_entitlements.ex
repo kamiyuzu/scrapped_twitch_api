@@ -31,11 +31,70 @@ defmodule TwitchApi.Entitlements.GetDropsEntitlements do
   User OAuth Token or App Access Token
   """
 
-  @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
-  def call do
+  # Unique identifier of the entitlement.
+  @typep id :: %{required(:id) => String.t()}
+  # A Twitch user ID.
+  @typep user_id :: %{required(:user_id) => String.t()}
+  # A Twitch game ID.
+  @typep game_id :: %{required(:game_id) => String.t()}
+  # An optional fulfillment status used to filter entitlements. Valid values are "CLAIMED" or "FULFILLED".
+  @typep fulfillment_status :: %{required(:fulfillment_status) => String.t()}
+  # The cursor used to fetch the next page of data.
+  @typep after_query_param :: %{required(:after_query_param) => String.t()}
+  # Maximum number of entitlements to return.Default: 20Max: 1000
+  @typep first :: %{required(:first) => integer}
+
+  @spec call(id | user_id | game_id | fulfillment_status | after_query_param | first) ::
+          {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  def call(%{id: id}) do
     MyFinch.request(
       "GET",
-      "https://api.twitch.tv/helix/entitlements/drops",
+      "https://api.twitch.tv/helix/entitlements/drops?id=#{id}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{user_id: user_id}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/entitlements/drops?user_id=#{user_id}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{game_id: game_id}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/entitlements/drops?game_id=#{game_id}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{fulfillment_status: fulfillment_status}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/entitlements/drops?fulfillment_status=#{fulfillment_status}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{after: after_query_param}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/entitlements/drops?after=#{after_query_param}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{first: first}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/entitlements/drops?first=#{first}",
       Headers.config_headers(),
       nil
     )

@@ -35,12 +35,35 @@ defmodule TwitchApi.Streams.GetFollowedStreams do
 
   # Results will only include active streams from the channels that this Twitch user follows. user_id must match the User ID in the bearer token.
   @typep user_id :: %{required(:user_id) => String.t()}
+  # Cursor for forward pagination: tells the server where to start fetching the next set of results, in a multi-page response. The cursor value specified here is from the pagination response field of a prior query.
+  @typep after_query_param :: %{required(:after_query_param) => String.t()}
+  # Maximum number of objects to return. Maximum: 100. Default: 100.
+  @typep first :: %{required(:first) => integer}
 
-  @spec call(user_id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  @spec call(user_id | after_query_param | first) ::
+          {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(%{user_id: user_id}) do
     MyFinch.request(
       "GET",
       "https://api.twitch.tv/helix/streams/followed?user_id=#{user_id}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{after: after_query_param}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/streams/followed?after=#{after_query_param}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{first: first}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/streams/followed?first=#{first}",
       Headers.config_headers(),
       nil
     )

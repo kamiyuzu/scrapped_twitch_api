@@ -32,8 +32,27 @@ defmodule TwitchApi.Teams.GetTeams do
   User OAuth Token or App Access Token
   """
 
-  @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
-  def call do
-    MyFinch.request("GET", "https://api.twitch.tv/helix/teams", Headers.config_headers(), nil)
+  # Team name.
+  @typep name :: %{required(:name) => String.t()}
+  # Team ID.
+  @typep id :: %{required(:id) => String.t()}
+
+  @spec call(name | id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  def call(%{name: name}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/teams?name=#{name}",
+      Headers.config_headers(),
+      nil
+    )
+  end
+
+  def call(%{id: id}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/teams?id=#{id}",
+      Headers.config_headers(),
+      nil
+    )
   end
 end
