@@ -28,6 +28,7 @@ defmodule TwitchApi.Polls.EndPoll do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -52,7 +53,7 @@ defmodule TwitchApi.Polls.EndPoll do
     MyFinch.request(
       "PATCH",
       "https://api.twitch.tv/helix/polls",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       body_params
     )
   end

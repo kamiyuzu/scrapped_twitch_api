@@ -14,7 +14,7 @@ defmodule TwitchApi.ApiJson.Template do
     moduledoc = ModuleDoc.create_moduledoc(item)
     doc = Doc.create_doc(item)
     method = Method.create_method(item)
-    aliass = Alias.get_alias()
+    aliass = Alias.get_alias(item)
 
     """
     defmodule #{module_name} do

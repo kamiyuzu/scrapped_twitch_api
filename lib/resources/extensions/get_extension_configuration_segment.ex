@@ -29,6 +29,7 @@ defmodule TwitchApi.Extensions.GetExtensionConfigurationSegment do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -51,7 +52,7 @@ defmodule TwitchApi.Extensions.GetExtensionConfigurationSegment do
     MyFinch.request(
       "GET",
       "https://api.twitch.tv/helix/extensions/configurations?broadcaster_id=#{broadcaster_id}",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end
@@ -60,7 +61,7 @@ defmodule TwitchApi.Extensions.GetExtensionConfigurationSegment do
     MyFinch.request(
       "GET",
       "https://api.twitch.tv/helix/extensions/configurations?extension_id=#{extension_id}",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end
@@ -69,7 +70,7 @@ defmodule TwitchApi.Extensions.GetExtensionConfigurationSegment do
     MyFinch.request(
       "GET",
       "https://api.twitch.tv/helix/extensions/configurations?segment=#{segment}",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end

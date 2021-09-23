@@ -27,6 +27,7 @@ defmodule TwitchApi.Tags.ReplaceStreamTags do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -46,7 +47,7 @@ defmodule TwitchApi.Tags.ReplaceStreamTags do
     MyFinch.request(
       "PUT",
       "https://api.twitch.tv/helix/streams/tags?broadcaster_id=#{broadcaster_id}",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end

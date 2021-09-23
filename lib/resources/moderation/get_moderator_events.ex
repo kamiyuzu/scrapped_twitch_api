@@ -22,6 +22,7 @@ defmodule TwitchApi.Moderation.GetModeratorEvents do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -39,7 +40,7 @@ defmodule TwitchApi.Moderation.GetModeratorEvents do
     MyFinch.request(
       "GET",
       "https://api.twitch.tv/helix/moderation/moderators/events?broadcaster_id=#{broadcaster_id}",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end

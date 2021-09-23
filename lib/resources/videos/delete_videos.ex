@@ -22,6 +22,7 @@ defmodule TwitchApi.Videos.DeleteVideos do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -40,7 +41,7 @@ defmodule TwitchApi.Videos.DeleteVideos do
     MyFinch.request(
       "DELETE",
       "https://api.twitch.tv/helix/videos?id=#{id}",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end

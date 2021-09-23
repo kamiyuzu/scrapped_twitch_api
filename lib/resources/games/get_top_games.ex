@@ -22,6 +22,7 @@ defmodule TwitchApi.Games.GetTopGames do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -32,12 +33,7 @@ defmodule TwitchApi.Games.GetTopGames do
   """
 
   @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
-  def call() do
-    MyFinch.request(
-      "GET",
-      "https://api.twitch.tv/helix/games/top",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
-      nil
-    )
+  def call do
+    MyFinch.request("GET", "https://api.twitch.tv/helix/games/top", Headers.config_headers(), nil)
   end
 end

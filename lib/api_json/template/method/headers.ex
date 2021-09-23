@@ -10,18 +10,32 @@ defmodule TwitchApi.ApiJson.Template.Method.Headers do
   """
   @spec get_headers(Item.t()) :: String.t()
   def get_headers(item) do
-    authorization = Args.authorization(item)
-    authentication = Args.authentication(item)
-    parse_headers(authorization or authentication)
+    item
+    |> valid_item?
+    |> parse_headers()
   end
 
-  @spec parse_headers(boolean) :: String.t()
-  def parse_headers(true), do: ",\n    TwitchApi.ApiJson.Template.Method.Headers.config_headers()"
+  defp valid_item?(item), do: Args.authorization(item) or Args.authentication(item)
 
-  def parse_headers(false), do: ",\n    []"
+  defp parse_headers(true), do: ",\n    Headers.config_headers()"
+  defp parse_headers(false), do: ",\n    []"
 
-  @spec config_headers() :: [{binary, binary}]
-  def config_headers() do
+  @doc """
+  Parses the twitch api Elixir body_params method for a twitch api item
+  """
+  @spec parse_method_params(String.t()) :: parsed_method_params :: String.t()
+  def parse_method_params(method_params) do
+    case method_params do
+      "" -> ""
+      method_params -> "(" <> method_params <> ")"
+    end
+  end
+
+  @doc """
+  Configures the headers for the Finch request
+  """
+  @spec config_headers :: headers :: [{binary, binary}]
+  def config_headers do
     wrapped_authorization = fn -> System.fetch_env!("authorization") end
     wrapped_client_id = fn -> System.fetch_env!("client_id") end
 

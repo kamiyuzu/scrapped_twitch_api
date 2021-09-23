@@ -22,6 +22,7 @@ defmodule TwitchApi.Users.UpdateUser do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -33,11 +34,11 @@ defmodule TwitchApi.Users.UpdateUser do
   """
 
   @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
-  def call() do
+  def call do
     MyFinch.request(
       "PUT",
       "https://api.twitch.tv/helix/users?description=<description>",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end

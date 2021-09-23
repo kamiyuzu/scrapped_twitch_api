@@ -26,9 +26,11 @@ defmodule TwitchApi.ApiJson.Template.Method do
   end
 
   defp create_normal_method(http_method, url, headers, {specs, method_params, request_params}) do
+    parsed_method_params = Headers.parse_method_params(method_params)
+
     """
     @spec call(#{specs}) :: {:ok, Finch.Response.t} | {:error, Exception.t}
-      def call(#{method_params}) do
+      def call#{parsed_method_params} do
         MyFinch.request(\"#{http_method}\",\"#{url}\"#{headers}#{request_params})
       end
     """

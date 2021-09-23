@@ -21,6 +21,7 @@ defmodule TwitchApi.Extensions.GetLiveChannels do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -38,7 +39,7 @@ defmodule TwitchApi.Extensions.GetLiveChannels do
     MyFinch.request(
       "GET",
       "https://api.twitch.tv/helix/extensions/live?extension_id=#{extension_id}",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end

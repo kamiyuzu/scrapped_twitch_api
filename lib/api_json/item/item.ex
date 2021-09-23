@@ -41,8 +41,8 @@ defmodule TwitchApi.ApiJson.Item do
   @doc """
   Fetchs the twitch api json items
   """
-  @spec get_api_items() :: [Item.t()]
-  def get_api_items() do
+  @spec get_api_items :: [Item.t()]
+  def get_api_items do
     {:ok, %Finch.Response{body: twitch_api_json}} =
       MyFinch.request(:get, @twitch_api_scrapped_json)
 
@@ -56,6 +56,6 @@ defmodule TwitchApi.ApiJson.Item do
   defp create_api_json_items(item) do
     %__MODULE__{}
     |> changeset(item)
-    |> schema()
+    |> schema
   end
 end

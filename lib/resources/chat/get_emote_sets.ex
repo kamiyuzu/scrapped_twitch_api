@@ -26,6 +26,7 @@ defmodule TwitchApi.Chat.GetEmoteSets do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -43,7 +44,7 @@ defmodule TwitchApi.Chat.GetEmoteSets do
     MyFinch.request(
       "GET",
       "https://api.twitch.tv/helix/chat/emotes/set?emote_set_id=#{emote_set_id}",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end

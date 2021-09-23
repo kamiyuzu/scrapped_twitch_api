@@ -23,6 +23,7 @@ defmodule TwitchApi.Users.UnblockUser do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -41,7 +42,7 @@ defmodule TwitchApi.Users.UnblockUser do
     MyFinch.request(
       "DELETE",
       "https://api.twitch.tv/helix/users/blocks?target_user_id=#{target_user_id}",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end

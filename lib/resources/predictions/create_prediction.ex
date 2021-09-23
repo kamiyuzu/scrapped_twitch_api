@@ -36,6 +36,7 @@ defmodule TwitchApi.Predictions.CreatePrediction do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -62,7 +63,7 @@ defmodule TwitchApi.Predictions.CreatePrediction do
     MyFinch.request(
       "POST",
       "https://api.twitch.tv/helix/predictions",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       body_params
     )
   end

@@ -31,6 +31,7 @@ defmodule TwitchApi.Entitlements.UpdateDropsEntitlements do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -41,11 +42,11 @@ defmodule TwitchApi.Entitlements.UpdateDropsEntitlements do
   """
 
   @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
-  def call() do
+  def call do
     MyFinch.request(
       "PATCH",
       "https://api.twitch.tv/helix/entitlements/drops",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end

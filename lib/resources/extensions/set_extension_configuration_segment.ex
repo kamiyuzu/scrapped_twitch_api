@@ -27,6 +27,7 @@ defmodule TwitchApi.Extensions.SetExtensionConfigurationSegment do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -49,7 +50,7 @@ defmodule TwitchApi.Extensions.SetExtensionConfigurationSegment do
     MyFinch.request(
       "PUT",
       "https://api.twitch.tv/helix/extensions/configurations",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       body_params
     )
   end

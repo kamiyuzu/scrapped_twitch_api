@@ -28,6 +28,7 @@ defmodule TwitchApi.Tags.GetAllStreamTags do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -38,11 +39,11 @@ defmodule TwitchApi.Tags.GetAllStreamTags do
   """
 
   @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
-  def call() do
+  def call do
     MyFinch.request(
       "GET",
       "https://api.twitch.tv/helix/tags/streams",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end

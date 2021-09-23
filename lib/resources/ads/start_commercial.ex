@@ -27,6 +27,7 @@ defmodule TwitchApi.Ads.StartCommercial do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -50,7 +51,7 @@ defmodule TwitchApi.Ads.StartCommercial do
     MyFinch.request(
       "POST",
       "https://api.twitch.tv/helix/channels/commercial",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       body_params
     )
   end

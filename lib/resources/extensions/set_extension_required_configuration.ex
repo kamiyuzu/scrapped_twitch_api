@@ -26,6 +26,7 @@ defmodule TwitchApi.Extensions.SetExtensionRequiredConfiguration do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -54,7 +55,7 @@ defmodule TwitchApi.Extensions.SetExtensionRequiredConfiguration do
       "https://api.twitch.tv/helix/extensions/required_configuration?broadcaster_id=#{
         broadcaster_id
       }",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       body_params
     )
   end

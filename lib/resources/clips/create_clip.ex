@@ -21,6 +21,7 @@ defmodule TwitchApi.Clips.CreateClip do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -39,7 +40,7 @@ defmodule TwitchApi.Clips.CreateClip do
     MyFinch.request(
       "POST",
       "https://api.twitch.tv/helix/clips?broadcaster_id=#{broadcaster_id}",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end

@@ -36,6 +36,7 @@ defmodule TwitchApi.Streams.GetStreams do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -46,12 +47,7 @@ defmodule TwitchApi.Streams.GetStreams do
   """
 
   @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
-  def call() do
-    MyFinch.request(
-      "GET",
-      "https://api.twitch.tv/helix/streams",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
-      nil
-    )
+  def call do
+    MyFinch.request("GET", "https://api.twitch.tv/helix/streams", Headers.config_headers(), nil)
   end
 end

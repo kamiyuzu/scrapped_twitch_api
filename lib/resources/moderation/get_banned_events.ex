@@ -22,6 +22,7 @@ defmodule TwitchApi.Moderation.GetBannedEvents do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -39,7 +40,7 @@ defmodule TwitchApi.Moderation.GetBannedEvents do
     MyFinch.request(
       "GET",
       "https://api.twitch.tv/helix/moderation/banned/events?broadcaster_id=#{broadcaster_id}",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end

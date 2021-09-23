@@ -22,6 +22,7 @@ defmodule TwitchApi.Videos.GetVideos do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -43,7 +44,7 @@ defmodule TwitchApi.Videos.GetVideos do
     MyFinch.request(
       "GET",
       "https://api.twitch.tv/helix/videos?id=#{id}",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end
@@ -52,7 +53,7 @@ defmodule TwitchApi.Videos.GetVideos do
     MyFinch.request(
       "GET",
       "https://api.twitch.tv/helix/videos?user_id=#{user_id}",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end
@@ -61,7 +62,7 @@ defmodule TwitchApi.Videos.GetVideos do
     MyFinch.request(
       "GET",
       "https://api.twitch.tv/helix/videos?game_id=#{game_id}",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end

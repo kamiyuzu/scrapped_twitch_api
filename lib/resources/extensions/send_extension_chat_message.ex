@@ -27,6 +27,7 @@ defmodule TwitchApi.Extensions.SendExtensionChatMessage do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -53,7 +54,7 @@ defmodule TwitchApi.Extensions.SendExtensionChatMessage do
     MyFinch.request(
       "POST",
       "https://api.twitch.tv/helix/extensions/chat?broadcaster_id=#{broadcaster_id}",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       body_params
     )
   end

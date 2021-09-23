@@ -34,6 +34,7 @@ defmodule TwitchApi.ChannelPoints.UpdateCustomReward do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -54,7 +55,7 @@ defmodule TwitchApi.ChannelPoints.UpdateCustomReward do
     MyFinch.request(
       "PATCH",
       "https://api.twitch.tv/helix/channel_points/custom_rewards?broadcaster_id=#{broadcaster_id}",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end
@@ -63,7 +64,7 @@ defmodule TwitchApi.ChannelPoints.UpdateCustomReward do
     MyFinch.request(
       "PATCH",
       "https://api.twitch.tv/helix/channel_points/custom_rewards?id=#{id}",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end

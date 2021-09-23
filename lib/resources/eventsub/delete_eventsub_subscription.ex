@@ -27,6 +27,7 @@ defmodule TwitchApi.EventSub.DeleteEventSubSubscription do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -44,7 +45,7 @@ defmodule TwitchApi.EventSub.DeleteEventSubSubscription do
     MyFinch.request(
       "DELETE",
       "https://api.twitch.tv/helix/eventsub/subscriptions?id=#{id}",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end

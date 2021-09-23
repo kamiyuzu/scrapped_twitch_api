@@ -29,6 +29,7 @@ defmodule TwitchApi.Search.SearchChannels do
   """
 
   alias TwitchApi.MyFinch
+  alias TwitchApi.ApiJson.Template.Method.Headers
 
   @doc """
   ### Description:
@@ -46,7 +47,7 @@ defmodule TwitchApi.Search.SearchChannels do
     MyFinch.request(
       "GET",
       "https://api.twitch.tv/helix/search/channels?query=#{query}",
-      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      Headers.config_headers(),
       nil
     )
   end
