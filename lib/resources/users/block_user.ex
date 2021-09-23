@@ -5,25 +5,24 @@ defmodule TwitchApi.Users.BlockUser do
   ## Example request from twitch api docs:
   ### descriptions:
   This example blocks a user with an ID of 198704263 on behalf of the authenticated user.
-  
+
   ### requests:
   curl -X PUT 'https://api.twitch.tv/helix/users/blocks?target_user_id=198704263'  
    -H'Authorization: Bearer 2gbdx6oar67tqtcmt49t3wpcgycthx'  
    -H'Client-Id: wbmytr93xzw8zbg0p1izqyzzc5mbiz'  
    
-  
+
 
   ## Example response from twitch api docs:
   ### descriptions:
-  
+
   ### responses:
   204NoContent
-  
+
 
   """
 
   alias TwitchApi.MyFinch
-
 
   @doc """
   ### Description:
@@ -34,12 +33,16 @@ defmodule TwitchApi.Users.BlockUser do
   Required scope: user:manage:blocked_users
   """
 
-  @typep target_user_id :: %{required(:target_user_id) => String.t()} # User ID of the user to be blocked.
-  
-  @spec call(target_user_id) :: {:ok, Finch.Response.t} | {:error, Exception.t}
-  def call(%{target_user_id: target_user_id}) do
-    MyFinch.request("PUT","https://api.twitch.tv/helix/users/blocks?target_user_id=#{target_user_id}",
-    TwitchApi.ApiJson.Template.Method.Headers.config_headers(), nil)
-  end
+  # User ID of the user to be blocked.
+  @typep target_user_id :: %{required(:target_user_id) => String.t()}
 
+  @spec call(target_user_id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  def call(%{target_user_id: target_user_id}) do
+    MyFinch.request(
+      "PUT",
+      "https://api.twitch.tv/helix/users/blocks?target_user_id=#{target_user_id}",
+      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      nil
+    )
+  end
 end

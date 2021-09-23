@@ -5,24 +5,23 @@ defmodule TwitchApi.Search.SearchCategories do
   ## Example request from twitch api docs:
   ### descriptions:
   This request queries for games and categories.
-  
+
   ### requests:
   curl -X GET 'https://api.twitch.tv/helix/search/categories?query=fort'  
    -H'Authorization: Bearer 2gbdx6oar67tqtcmt49t3wpcgycthx'  
    -H'Client-Id: wbmytr93xzw8zbg0p1izqyzzc5mbiz'
-  
+
 
   ## Example response from twitch api docs:
   ### descriptions:
-  
+
   ### responses:
   {"data":[{"id":"33214","name":"Fortnite","box_art_url":"https://static-cdn.jtvnw.net/ttv-boxart/Fortnite-{width}x{height}.jpg"},...],"pagination":{"cursor":"eyJiIjpudWxsLCJhIjp7IkN"}}
-  
+
 
   """
 
   alias TwitchApi.MyFinch
-
 
   @doc """
   ### Description:
@@ -32,12 +31,16 @@ defmodule TwitchApi.Search.SearchCategories do
   OAuth or App Access Token required
   """
 
-  @typep query :: %{required(:query) => String.t()} # URl encoded search query
-  
-  @spec call(query) :: {:ok, Finch.Response.t} | {:error, Exception.t}
-  def call(%{query: query}) do
-    MyFinch.request("GET","https://api.twitch.tv/helix/search/categories?query=#{query}",
-    TwitchApi.ApiJson.Template.Method.Headers.config_headers(), nil)
-  end
+  # URl encoded search query
+  @typep query :: %{required(:query) => String.t()}
 
+  @spec call(query) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  def call(%{query: query}) do
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/search/categories?query=#{query}",
+      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      nil
+    )
+  end
 end

@@ -5,24 +5,23 @@ defmodule TwitchApi.Videos.DeleteVideos do
   ## Example request from twitch api docs:
   ### descriptions:
   This example deletes two videos with the IDs 1234 and 9876.
-  
+
   ### requests:
   curl -X DELETE 'https://api.twitch.tv/helix/videos?id=1234&id=9876'  
    -H'Authorization: Bearer 2gbdx6oar67tqtcmt49t3wpcgycthx'  
    -H'Client-Id: uo6dggojyb8d6soh92zknwmi5ej1q2'
-  
+
 
   ## Example response from twitch api docs:
   ### descriptions:
-  
+
   ### responses:
   {"data":["1234","9876"]}
-  
+
 
   """
 
   alias TwitchApi.MyFinch
-
 
   @doc """
   ### Description:
@@ -33,12 +32,16 @@ defmodule TwitchApi.Videos.DeleteVideos do
   Required scope: channel:manage:videos
   """
 
-  @typep id :: %{required(:id) => String.t()} # ID of the video(s) to be deleted. Limit: 5.
-  
-  @spec call(id) :: {:ok, Finch.Response.t} | {:error, Exception.t}
-  def call(%{id: id}) do
-    MyFinch.request("DELETE","https://api.twitch.tv/helix/videos?id=#{id}",
-    TwitchApi.ApiJson.Template.Method.Headers.config_headers(), nil)
-  end
+  # ID of the video(s) to be deleted. Limit: 5.
+  @typep id :: %{required(:id) => String.t()}
 
+  @spec call(id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  def call(%{id: id}) do
+    MyFinch.request(
+      "DELETE",
+      "https://api.twitch.tv/helix/videos?id=#{id}",
+      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      nil
+    )
+  end
 end

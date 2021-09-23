@@ -4,24 +4,23 @@ defmodule TwitchApi.Streams.GetStreamKey do
 
   ## Example request from twitch api docs:
   ### descriptions:
-  
+
   ### requests:
   curl -X GET 'https://api.twitch.tv/helix/streams/key'  
    -H'Authorization: Bearer cfabdegwdoklmawdzdo98xt2fo512y'  
    -H'Client-Id: uo6dggojyb8d6soh92zknwmi5ej1q2'
-  
+
 
   ## Example response from twitch api docs:
   ### descriptions:
-  
+
   ### responses:
   {"data":[{"stream_key":"live_44322889_a34ub37c8ajv98a0"},]}
-  
+
 
   """
 
   alias TwitchApi.MyFinch
-
 
   @doc """
   ### Description:
@@ -32,10 +31,13 @@ defmodule TwitchApi.Streams.GetStreamKey do
   Required scope: channel:read:stream_key
   """
 
-  @spec call() :: {:ok, Finch.Response.t} | {:error, Exception.t}
+  @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call() do
-    MyFinch.request("GET","https://api.twitch.tv/helix/streams/key",
-    TwitchApi.ApiJson.Template.Method.Headers.config_headers(), nil)
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/streams/key",
+      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      nil
+    )
   end
-
 end

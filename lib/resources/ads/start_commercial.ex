@@ -5,7 +5,7 @@ defmodule TwitchApi.Ads.StartCommercial do
   ## Example request from twitch api docs:
   ### descriptions:
   This request starts a commercial.
-  
+
   ### requests:
   curl -X POST 'https://api.twitch.tv/helix/channels/commercial'  
    -H'Authorization: Bearer 2gbdx6oar67tqtcmt49t3wpcgycthx'  
@@ -15,19 +15,18 @@ defmodule TwitchApi.Ads.StartCommercial do
     "broadcaster_id": "41245072",
     "length": 60
    }'
-  
+
 
   ## Example response from twitch api docs:
   ### descriptions:
-  
+
   ### responses:
   {"data":[{"length":60,"message":"","retry_after":480}]}
-  
+
 
   """
 
   alias TwitchApi.MyFinch
-
 
   @doc """
   ### Description:
@@ -38,12 +37,21 @@ defmodule TwitchApi.Ads.StartCommercial do
   Required scope: channel:edit:commercial
   """
 
-  @spec call(%{required(:broadcaster_id) => String.t(), # ID of the channel requesting a commercialMinimum =>  1 Maximum =>  1
-    required(:length) => integer, # Desired length of the commercial in seconds. Valid options are 30 60 90 120 150 180.
-    }| nil) :: {:ok, Finch.Response.t} | {:error, Exception.t}
+  # ID of the channel requesting a commercialMinimum =>  1 Maximum =>  1
+  @spec call(
+          %{
+            required(:broadcaster_id) => String.t(),
+            # Desired length of the commercial in seconds. Valid options are 30 60 90 120 150 180.
+            required(:length) => integer
+          }
+          | nil
+        ) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(body_params) do
-    MyFinch.request("POST","https://api.twitch.tv/helix/channels/commercial",
-    TwitchApi.ApiJson.Template.Method.Headers.config_headers(), body_params)
+    MyFinch.request(
+      "POST",
+      "https://api.twitch.tv/helix/channels/commercial",
+      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      body_params
+    )
   end
-
 end

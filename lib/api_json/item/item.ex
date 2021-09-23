@@ -43,7 +43,8 @@ defmodule TwitchApi.ApiJson.Item do
   """
   @spec get_api_items() :: [Item.t()]
   def get_api_items() do
-    {:ok, %Finch.Response{body: twitch_api_json}} = MyFinch.request(:get, @twitch_api_scrapped_json)
+    {:ok, %Finch.Response{body: twitch_api_json}} =
+      MyFinch.request(:get, @twitch_api_scrapped_json)
 
     twitch_api_json
     |> Jason.decode!()

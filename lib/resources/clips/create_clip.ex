@@ -4,24 +4,23 @@ defmodule TwitchApi.Clips.CreateClip do
 
   ## Example request from twitch api docs:
   ### descriptions:
-  
+
   ### requests:
   curl -X POST 'https://api.twitch.tv/helix/clips?broadcaster_id=44322889'  
    -H'Authorization: Bearer cfabdegwdoklmawdzdo98xt2fo512y'  
    -H'Client-Id: uo6dggojyb8d6soh92zknwmi5ej1q2'
-  
+
 
   ## Example response from twitch api docs:
   ### descriptions:
-  
+
   ### responses:
   {"data":[{"id":"FiveWordsForClipSlug","edit_url":"http://clips.twitch.tv/FiveWordsForClipSlug/edit"}]}
-  
+
 
   """
 
   alias TwitchApi.MyFinch
-
 
   @doc """
   ### Description:
@@ -32,12 +31,16 @@ defmodule TwitchApi.Clips.CreateClip do
   Required scope: clips:edit
   """
 
-  @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()} # ID of the stream from which the clip will be made.
-  
-  @spec call(broadcaster_id) :: {:ok, Finch.Response.t} | {:error, Exception.t}
-  def call(%{broadcaster_id: broadcaster_id}) do
-    MyFinch.request("POST","https://api.twitch.tv/helix/clips?broadcaster_id=#{broadcaster_id}",
-    TwitchApi.ApiJson.Template.Method.Headers.config_headers(), nil)
-  end
+  # ID of the stream from which the clip will be made.
+  @typep broadcaster_id :: %{required(:broadcaster_id) => String.t()}
 
+  @spec call(broadcaster_id) :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
+  def call(%{broadcaster_id: broadcaster_id}) do
+    MyFinch.request(
+      "POST",
+      "https://api.twitch.tv/helix/clips?broadcaster_id=#{broadcaster_id}",
+      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      nil
+    )
+  end
 end

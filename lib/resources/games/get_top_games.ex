@@ -5,24 +5,23 @@ defmodule TwitchApi.Games.GetTopGames do
   ## Example request from twitch api docs:
   ### descriptions:
   This gets the 20 currently most-viewed games.
-  
+
   ### requests:
   curl -X GET 'https://api.twitch.tv/helix/games/top'  
    -H'Authorization: Bearer cfabdegwdoklmawdzdo98xt2fo512y'  
    -H'Client-Id: uo6dggojyb8d6soh92zknwmi5ej1q2'
-  
+
 
   ## Example response from twitch api docs:
   ### descriptions:
-  
+
   ### responses:
   {"data":[{"id":"493057","name":"PLAYERUNKNOWN'S BATTLEGROUNDS","box_art_url":"https://static-cdn.jtvnw.net/ttv-boxart/PLAYERUNKNOWN%27S%20BATTLEGROUNDS-{width}x{height}.jpg"},...],"pagination":{"cursor":"eyJiIjpudWxsLCJhIjp7Ik9mZnNldCI6MjB9fQ=="}}
-  
+
 
   """
 
   alias TwitchApi.MyFinch
-
 
   @doc """
   ### Description:
@@ -32,10 +31,13 @@ defmodule TwitchApi.Games.GetTopGames do
   OAuth or App Access Token required.
   """
 
-  @spec call() :: {:ok, Finch.Response.t} | {:error, Exception.t}
+  @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call() do
-    MyFinch.request("GET","https://api.twitch.tv/helix/games/top",
-    TwitchApi.ApiJson.Template.Method.Headers.config_headers(), nil)
+    MyFinch.request(
+      "GET",
+      "https://api.twitch.tv/helix/games/top",
+      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      nil
+    )
   end
-
 end

@@ -5,26 +5,25 @@ defmodule TwitchApi.Streams.CreateStreamMarker do
   ## Example request from twitch api docs:
   ### descriptions:
   This creates a marker at the current location in user 123’s stream.
-  
+
   ### requests:
   curl -X POST 'https://api.twitch.tv/helix/streams/markers'  
    -H'Authorization: Bearer cfabdegwdoklmawdzdo98xt2fo512y'  
    -H'Client-Id: uo6dggojyb8d6soh92zknwmi5ej1q2'  
    -H'Content-Type: application/json'  
    -d'{"user_id":"123", "description":"hello, this is a marker!"}'
-  
+
 
   ## Example response from twitch api docs:
   ### descriptions:
-  
+
   ### responses:
   {"data":[{"id":123,"created_at":"2018-08-20T20:10:03Z","description":"hello, this is a marker!","position_seconds":244}]}
-  
+
 
   """
 
   alias TwitchApi.MyFinch
-
 
   @doc """
   ### Description:
@@ -35,11 +34,15 @@ defmodule TwitchApi.Streams.CreateStreamMarker do
   Required scope: channel:manage:broadcast
   """
 
-  @spec call(%{required(:user_id) => String.t(), # ID of the broadcaster in whose live stream the marker is created.
-    }| nil) :: {:ok, Finch.Response.t} | {:error, Exception.t}
+  # ID of the broadcaster in whose live stream the marker is created.
+  @spec call(%{required(:user_id) => String.t()} | nil) ::
+          {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call(body_params) do
-    MyFinch.request("POST","https://api.twitch.tv/helix/streams/markers",
-    TwitchApi.ApiJson.Template.Method.Headers.config_headers(), body_params)
+    MyFinch.request(
+      "POST",
+      "https://api.twitch.tv/helix/streams/markers",
+      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      body_params
+    )
   end
-
 end

@@ -4,7 +4,7 @@ defmodule TwitchApi.Entitlements.UpdateDropsEntitlements do
 
   ## Example request from twitch api docs:
   ### descriptions:
-  
+
   ### requests:
   curl -H PATCH 'helix/entitlements/drops'  
    -H'Authorization: Bearer cfabdegwdoklmawdzdo98xt2fo512y'  
@@ -19,19 +19,18 @@ defmodule TwitchApi.Entitlements.UpdateDropsEntitlements do
       "9a290126-7e3b-4f66-a9ae-551537893b65"
     ]
    }'
-  
+
 
   ## Example response from twitch api docs:
   ### descriptions:
-  
+
   ### responses:
   {"data":[{"status":"SUCCESS","ids":["fb78259e-fb81-4d1b-8333-34a06ffc24c0","862750a5-265e-4ab6-9f0a-c64df3d54dd0"]},{"status":"UNAUTHORIZED","ids":["d8879baa-3966-4d10-8856-15fdd62cce02"]},{"status":"UPDATE_FAILED","ids":["9a290126-7e3b-4f66-a9ae-551537893b65"]}]}
-  
+
 
   """
 
   alias TwitchApi.MyFinch
-
 
   @doc """
   ### Description:
@@ -41,10 +40,13 @@ defmodule TwitchApi.Entitlements.UpdateDropsEntitlements do
   User OAuth Token or App Access Token
   """
 
-  @spec call() :: {:ok, Finch.Response.t} | {:error, Exception.t}
+  @spec call() :: {:ok, Finch.Response.t()} | {:error, Exception.t()}
   def call() do
-    MyFinch.request("PATCH","https://api.twitch.tv/helix/entitlements/drops",
-    TwitchApi.ApiJson.Template.Method.Headers.config_headers(), nil)
+    MyFinch.request(
+      "PATCH",
+      "https://api.twitch.tv/helix/entitlements/drops",
+      TwitchApi.ApiJson.Template.Method.Headers.config_headers(),
+      nil
+    )
   end
-
 end
