@@ -9,15 +9,22 @@ defmodule TwitchApi.ApiJson.Template.Method.Headers do
   @doc """
   Provides the twitch api Elixir headers method for a twitch api item
   """
-  @spec get_headers(Item.t()) :: String.t()
+  @spec get_headers(Item.t()) :: String.t() | :not_supported
   def get_headers(item) do
     item
     |> valid_item?
     |> parse_headers()
   end
 
-  defp valid_item?(item), do: Args.authorization(item) or Args.authentication(item)
+  defp valid_item?(item) do
+    case Args.authentication(item) do
+      false -> Args.authentication(item) or Args.authorization(item)
+      :not_supported -> :not_supported
+      true -> Args.authentication(item) or Args.authorization(item)
+    end
+  end
 
+  defp parse_headers(:not_supported), do: :not_supported
   defp parse_headers(true), do: ",\n    Headers.config_headers()"
   defp parse_headers(false), do: ",\n    []"
 

@@ -34,8 +34,8 @@ defmodule TwitchApi.AppAccessToken do
   """
   @impl true
   @spec format_status(any, list) :: list
-  def format_status(_reason, [pdict, state]), do:
-    [pdict, %__MODULE__{state | access_token: @filtered_token}]
+  def format_status(_reason, [pdict, state]),
+    do: [pdict, %__MODULE__{state | access_token: @filtered_token}]
 
   @doc """
   Callback for the GenServer to handle the refresh message
@@ -80,7 +80,13 @@ defmodule TwitchApi.AppAccessToken do
       "expires_in" => expires_in,
       "token_type" => token_type
     } = handle_and_log_response_body(response, @filter_access_token)
-    %__MODULE__{state | access_token: access_token, expires_in: expires_in, token_type: token_type}
+
+    %__MODULE__{
+      state
+      | access_token: access_token,
+        expires_in: expires_in,
+        token_type: token_type
+    }
   end
 
   defp handle_and_log_response_body(response, filter_keys) do
@@ -95,6 +101,7 @@ defmodule TwitchApi.AppAccessToken do
     wrapped_client_secret = fn -> System.fetch_env!("client_secret") end
     wrapped_client_id = fn -> System.fetch_env!("client_id") end
     scopes = Application.get_env(:twitch_api, :scopes)
+
     @twitch_token_url
     |> Kernel.<>("&client_id=#{wrapped_client_id.()}")
     |> Kernel.<>("&client_secret=#{wrapped_client_secret.()}")
