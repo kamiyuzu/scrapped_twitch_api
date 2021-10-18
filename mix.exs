@@ -21,7 +21,9 @@ defmodule TwitchApi.MixProject do
       # Docs
       name: "TwitchApi",
       source_url: "https://github.com/kamiyuzu/twitch_api",
+      # homepage_url: "http://YOUR_PROJECT_HOMEPAGE",
       docs: [
+        # The main page in the docs
         main: TwitchApi,
         logo: "lib/assets/twitch_logo.svg.png",
         extras: ["README.md"],
@@ -45,9 +47,9 @@ defmodule TwitchApi.MixProject do
   defp package do
     [
       maintainers: ["Alberto Revuelta / Kamiyuzu"],
-      licenses: ["GPL-3.0-or-later"],
+      licenses: ["GNU GPL3"],
       links: %{"GitHub" => "https://github.com/kamiyuzu/twitch_api"},
-      files: ~w(lib mix.exs README* LICENSE)
+      files: ~w(lib mix.exs README.md .env_example .envrc)
     ]
   end
 
