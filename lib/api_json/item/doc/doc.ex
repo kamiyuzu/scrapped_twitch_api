@@ -7,8 +7,8 @@ defmodule TwitchApi.ApiJson.Item.Doc do
   alias TwitchApi.ApiJson.Item.Doc.{Request, Response}
 
   @type t :: %__MODULE__{
-          requests: Request.t(),
-          responses: Response.t()
+          requests: Item.t(),
+          responses: Item.t()
         }
 
   @primary_key false
