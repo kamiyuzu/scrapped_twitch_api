@@ -52,9 +52,7 @@ defmodule TwitchApi.Extensions.SetExtensionRequiredConfiguration do
   def call(%{broadcaster_id: broadcaster_id}, body_params) do
     MyFinch.request(
       "PUT",
-      "https://api.twitch.tv/helix/extensions/required_configuration?broadcaster_id=#{
-        broadcaster_id
-      }",
+      "https://api.twitch.tv/helix/extensions/required_configuration?broadcaster_id=#{broadcaster_id}",
       Headers.config_headers(),
       body_params
     )

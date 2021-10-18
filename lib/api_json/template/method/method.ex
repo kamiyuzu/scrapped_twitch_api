@@ -59,9 +59,7 @@ defmodule TwitchApi.ApiJson.Template.Method do
 
       """
       def call(%#{query_param_string}#{method_params}) do
-          MyFinch.request(\"#{http_method}\",\"#{url}?#{query_param.param}=\#{#{parsed_param}}\"#{
-        headers
-      }#{request_params})
+          MyFinch.request(\"#{http_method}\",\"#{url}?#{query_param.param}=\#{#{parsed_param}}\"#{headers}#{request_params})
         end
       """
     end)
