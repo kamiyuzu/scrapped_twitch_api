@@ -50,6 +50,7 @@ defmodule TwitchApi.OIDC do
     Logger.info("Sending authorization request to twitch for access token")
     url = generate_authorize_url(code)
     {:ok, resp} = TwitchApi.MyFinch.request(:post, url, [], nil)
+
     %{
       "access_token" => access_token,
       "id_token" => id_token,
@@ -57,7 +58,16 @@ defmodule TwitchApi.OIDC do
       "scope" => scope,
       "token_type" => token_type
     } = Jason.decode!(resp.body)
-    new_state = %{state | access_token: access_token, id_token: id_token, refresh_token: refresh_token, scope: scope, token_type: token_type}
+
+    new_state = %{
+      state
+      | access_token: access_token,
+        id_token: id_token,
+        refresh_token: refresh_token,
+        scope: scope,
+        token_type: token_type
+    }
+
     {:noreply, new_state}
   end
 
@@ -93,15 +103,18 @@ defmodule TwitchApi.OIDC do
   def browser_user_access_token, do: GenServer.cast(__MODULE__, :browser)
 
   @spec request_access_token(map) :: :ok
-  def request_access_token(query_params), do: GenServer.cast(__MODULE__, {:access_token, query_params})
+  def request_access_token(query_params),
+    do: GenServer.cast(__MODULE__, {:access_token, query_params})
 
   defp browser_open(path) do
     start_browser_command =
-      case :os.type do
+      case :os.type() do
         {:win32, _} ->
           "start"
+
         {:unix, :darwin} ->
           "open"
+
         {:unix, _} ->
           "xdg-open"
       end
@@ -109,7 +122,7 @@ defmodule TwitchApi.OIDC do
     if System.find_executable(start_browser_command) do
       System.cmd(start_browser_command, [path])
     else
-      Mix.raise "Command not found: #{start_browser_command}"
+      Mix.raise("Command not found: #{start_browser_command}")
     end
   end
 
