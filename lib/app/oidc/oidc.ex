@@ -2,7 +2,7 @@ defmodule TwitchApi.OIDC do
   use GenServer, restart: :transient
 
   @moduledoc """
-  This module provides a refresh process and holds the state for twitch user access tokens
+  This module provides a process to hold the state for twitch user access tokens
   """
 
   require Logger
@@ -31,17 +31,17 @@ defmodule TwitchApi.OIDC do
   @impl true
   @spec format_status(any, list) :: list
   def format_status(_reason, [pdict, state]),
-    do: [pdict, Map.drop(state, @filter_sensitive_keys)]
+    do: [pdict, state]
 
   @doc """
   Callback for the GenServer to handle the browser message
   """
   @impl true
-  @spec handle_cast(:browser, state) :: {:noreply, state}
-  def handle_cast(:browser, state) do
+  @spec handle_cast({:browser, list}, state) :: {:noreply, state}
+  def handle_cast({:browser, scope}, state) do
     Logger.info("Launch browser with twitch oidc authorization path")
     oidc_state = generate_state()
-    path = generate_oidc_url(oidc_state)
+    path = generate_oidc_url(oidc_state, scope)
     browser_open(path)
     {:noreply, %__MODULE__{state | state: oidc_state}}
   end
@@ -99,8 +99,8 @@ defmodule TwitchApi.OIDC do
     access_token
   end
 
-  @spec browser_user_access_token :: :ok
-  def browser_user_access_token, do: GenServer.cast(__MODULE__, :browser)
+  @spec browser_user_access_token(list) :: :ok
+  def browser_user_access_token(scopes), do: GenServer.cast(__MODULE__, {:browser, scopes})
 
   @spec request_access_token(map) :: :ok
   def request_access_token(query_params),
@@ -126,14 +126,26 @@ defmodule TwitchApi.OIDC do
     end
   end
 
-  defp generate_oidc_url(state) do
+  defp generate_oidc_url(state, []) do
     wrapped_client_id = fn -> System.fetch_env!("client_id") end
 
     "https://id.twitch.tv/oauth2/authorize"
     |> Kernel.<>("?response_type=code")
     |> Kernel.<>("&client_id=#{wrapped_client_id.()}")
     |> Kernel.<>("&redirect_uri=#{@callback_uri}")
-    |> Kernel.<>("&scope=viewing_activity_read+openid")
+    |> Kernel.<>("&scope=openid")
+    |> Kernel.<>("&state=#{state}")
+  end
+
+  defp generate_oidc_url(state, scope) do
+    wrapped_client_id = fn -> System.fetch_env!("client_id") end
+    scopes = Enum.join(scope, "+")
+
+    "https://id.twitch.tv/oauth2/authorize"
+    |> Kernel.<>("?response_type=code")
+    |> Kernel.<>("&client_id=#{wrapped_client_id.()}")
+    |> Kernel.<>("&redirect_uri=#{@callback_uri}")
+    |> Kernel.<>("&scope=#{scopes}+openid")
     |> Kernel.<>("&state=#{state}")
   end
 
