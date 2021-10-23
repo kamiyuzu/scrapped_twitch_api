@@ -82,7 +82,7 @@ defmodule TwitchApi.OIDC.AccessToken do
     %OIDC{state | state: oidc_state}
   end
 
-    defp browser_open(path) do
+  defp browser_open(path) do
     start_browser_command =
       case :os.type() do
         {:win32, _} ->
@@ -127,15 +127,22 @@ defmodule TwitchApi.OIDC.AccessToken do
 
   defp generate_state, do: UUID.uuid1()
 
-  @spec refresh(binary, binary, binary, non_neg_integer, TwitchApi.OIDC.state) :: TwitchApi.OIDC.state
-  def refresh(user_id, user_name, refresh_token, interval, %TwitchApi.OIDC{users_id: users_id, users_name: users_name} = state) do
+  @spec refresh(binary, binary, binary, non_neg_integer, TwitchApi.OIDC.state()) ::
+          TwitchApi.OIDC.state()
+  def refresh(
+        user_id,
+        user_name,
+        refresh_token,
+        interval,
+        %TwitchApi.OIDC{users_id: users_id, users_name: users_name} = state
+      ) do
     headers = create_refresh_headers()
     url = generate_refresh_token_url(refresh_token)
     {:ok, resp} = TwitchApi.MyFinch.request(:post, url, headers, nil)
 
     Logger.debug("Refreshed user access token successfully")
 
-    %{ "access_token" => new_access_token } = Jason.decode!(resp.body)
+    %{"access_token" => new_access_token} = Jason.decode!(resp.body)
 
     OIDC.schedule_refresh(user_id, user_name, refresh_token, interval)
 

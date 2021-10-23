@@ -146,6 +146,11 @@ defmodule TwitchApi.OIDC do
   """
   def schedule_refresh(user_id, user_name, refresh_token, interval) do
     Logger.debug("Scheduling a refresh for user: #{user_name} in #{interval} seconds")
-    Process.send_after(self(), {:refresh, user_id, user_name, refresh_token, interval}, interval * 1_000)
+
+    Process.send_after(
+      self(),
+      {:refresh, user_id, user_name, refresh_token, interval},
+      interval * 1_000
+    )
   end
 end
