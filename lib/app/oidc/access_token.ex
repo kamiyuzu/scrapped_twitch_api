@@ -1,9 +1,8 @@
 defmodule TwitchApi.OIDC.AccessToken do
-
   @callback_uri "http://localhost:8090/callback"
   @twitch_jwk_uri "https://id.twitch.tv/oauth2/keys"
 
-  @spec state(binary, TwitchApi.OIDC.state) :: TwitchApi.OIDC.state
+  @spec state(binary, TwitchApi.OIDC.state()) :: TwitchApi.OIDC.state()
   def state(code, %TwitchApi.OIDC{users_id: users_id, users_name: users_name} = state) do
     url = generate_authorize_url(code)
     {:ok, resp} = TwitchApi.MyFinch.request(:post, url, [], nil)

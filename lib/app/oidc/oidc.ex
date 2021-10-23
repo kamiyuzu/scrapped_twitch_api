@@ -20,7 +20,7 @@ defmodule TwitchApi.OIDC do
           expiration_time: integer,
           time_issued: integer
         }
-  @type users_data :: %{ binary => user_data }
+  @type users_data :: %{binary => user_data}
   @type state :: %__MODULE__{state: binary, users_id: users_data, users_name: users_data}
 
   @callback_uri "http://localhost:8090/callback"
@@ -46,8 +46,13 @@ defmodule TwitchApi.OIDC do
   def format_status(_reason, [pdict, state]) do
     no_state = Map.drop(state, @filter_state)
     %__MODULE__{users_id: users_id, users_name: users_name} = no_state
-    filtered_users_id = for {k, v} <- users_id, into: %{}, do: {k, Map.drop(v, @filter_users_data)}
-    filtered_users_name = for {k, v} <- users_name, into: %{}, do: {k, Map.drop(v, @filter_users_data)}
+
+    filtered_users_id =
+      for {k, v} <- users_id, into: %{}, do: {k, Map.drop(v, @filter_users_data)}
+
+    filtered_users_name =
+      for {k, v} <- users_name, into: %{}, do: {k, Map.drop(v, @filter_users_data)}
+
     filtered_state = %__MODULE__{users_id: filtered_users_id, users_name: filtered_users_name}
     [pdict, filtered_state]
   end
@@ -84,7 +89,9 @@ defmodule TwitchApi.OIDC do
   """
   @spec start_link(any) :: :ignore | {:error, term} | {:ok, pid}
   def start_link(_) do
-    GenServer.start_link(__MODULE__, %__MODULE__{state: "", users_id: %{}, users_name: %{}}, name: __MODULE__)
+    GenServer.start_link(__MODULE__, %__MODULE__{state: "", users_id: %{}, users_name: %{}},
+      name: __MODULE__
+    )
   end
 
   @doc """
@@ -102,7 +109,7 @@ defmodule TwitchApi.OIDC do
   @spec get_access_token_id(binary) :: binary
   def get_access_token_id(user_id) do
     %__MODULE__{users_id: users_id} = GenServer.call(__MODULE__, :state)
-    %{ access_token: access_token } = Map.get(users_id, user_id)
+    %{access_token: access_token} = Map.get(users_id, user_id)
     access_token
   end
 
@@ -112,7 +119,7 @@ defmodule TwitchApi.OIDC do
   @spec get_access_token_name(binary) :: binary
   def get_access_token_name(user_name) do
     %__MODULE__{users_name: users_name} = GenServer.call(__MODULE__, :state)
-    %{ access_token: access_token } = Map.get(users_name, user_name)
+    %{access_token: access_token} = Map.get(users_name, user_name)
     access_token
   end
 

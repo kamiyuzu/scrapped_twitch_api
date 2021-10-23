@@ -6,7 +6,7 @@ defmodule TwitchApi.SimpleServer.Callback do
   @spec call(Plug.Conn.t()) :: Plug.Conn.t()
   def call(conn) do
     conn = fetch_query_params(conn)
-    query_params= conn.query_params
+    query_params = conn.query_params
     %{"state" => state} = query_params
     ^state = OIDC.get_state()
     OIDC.request_access_token(query_params)
