@@ -1,4 +1,8 @@
 defmodule TwitchApi.OIDC.AccessToken do
+  @moduledoc """
+  This module provides the required logic for dealing with twitch user access token information
+  """
+
   @callback_uri "http://localhost:8090/callback"
   @twitch_jwk_uri "https://id.twitch.tv/oauth2/keys"
 

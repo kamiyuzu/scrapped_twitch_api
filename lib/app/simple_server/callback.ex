@@ -1,4 +1,8 @@
 defmodule TwitchApi.SimpleServer.Callback do
+  @moduledoc """
+  This module provides the required logic for the callback endpoint
+  """
+
   import Plug.Conn
 
   alias TwitchApi.OIDC
