@@ -50,7 +50,7 @@ defmodule TwitchApi.ApiJson.Template.Method.Headers do
   @doc """
   Parses the twitch api Elixir get_headers method for a twitch api item. If its an OAuth header it config the needed method type spec.
   """
-  @spec get_oauth_type_spec(String.t()) :: parsed_get_headers :: String.t()
+  @spec get_oauth_type_spec(String.t()) :: {[type_spec :: String.t()], method_param :: String.t()}
   def get_oauth_type_spec(headers) do
     case String.contains?(headers, ["user_info"]) do
       false ->
