@@ -112,6 +112,17 @@ defmodule TwitchApi.MixProject do
       "Twitch api adapter": [
         TwitchApi.MyFinch
       ],
+      "Twitch api app access token": [
+        TwitchApi.AppAccessToken
+      ],
+      "Twitch api oauth access token": [
+        TwitchApi.OIDC.AccessToken,
+        TwitchApi.OIDC
+      ],
+      "Twitch api simple server": [
+        TwitchApi.SimpleServer.Router,
+        TwitchApi.SimpleServer.Callback
+      ],
       "Twitch api json item": [
         TwitchApi.ApiJson.Item
       ],
