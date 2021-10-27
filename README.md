@@ -1,5 +1,9 @@
 # TwitchApi
 
+[![Hexdocs.pm](https://img.shields.io/badge/hexdocs-online-blue)](https://hexdocs.pm/scrapped_twitch_api/)
+[![Hex.pm](https://img.shields.io/hexpm/v/scrapped_twitch_api.svg)](https://hex.pm/packages/scrapped_twitch_api)
+<!--- [![Hex.pm Downloads](https://img.shields.io/hexpm/dt/scrapped_twitch_api)](https://hex.pm/packages/scrapped_twitch_api) -->
+
 This library provides an Elixir library for twitch API. It makes use of an Elixir scrapper for [Twitch API](https://github.com/kamiyuzu/twitch_api_scraper).
 
 ## Library configuration
