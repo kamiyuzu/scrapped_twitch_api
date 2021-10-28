@@ -102,7 +102,9 @@ defmodule TwitchApi.AppAccessToken do
   defp configure_twitch_token_url do
     wrapped_client_secret = fn -> System.fetch_env!("client_secret") end
     wrapped_client_id = fn -> System.fetch_env!("client_id") end
-    scopes = :scrapped_twitch_api
+
+    scopes =
+      :scrapped_twitch_api
       |> Application.get_env(:access_token_scopes)
       |> Enum.join("+")
 
