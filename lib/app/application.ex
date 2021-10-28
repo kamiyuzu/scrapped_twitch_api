@@ -7,7 +7,7 @@ defmodule TwitchApi.Application do
 
   alias Plug.Adapters.Cowboy
 
-  @callback_port Application.get_env(:scrapped_twitch_api, :callback_port)
+  @callback_port Application.compile_env!(:scrapped_twitch_api, :callback_port)
 
   def start(_type, _args) do
     children = [
