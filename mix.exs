@@ -22,7 +22,7 @@ defmodule TwitchApi.MixProject do
       name: "TwitchApi",
       source_url: "https://github.com/kamiyuzu/scrapped_twitch_api",
       docs: [
-        main: TwitchApi,
+        main: "readme.html#content",
         logo: "lib/assets/twitch_logo.svg.png",
         extras: ["README.md"],
         groups_for_modules: ex_docs_groups()
