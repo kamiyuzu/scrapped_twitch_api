@@ -12,9 +12,11 @@ defmodule TwitchApi.SimpleServer.Callback do
     conn = fetch_query_params(conn)
     query_params = conn.query_params
     %{"state" => state} = query_params
+
     case Enum.member?(OIDC.get_state(), state) do
       false ->
         send_resp(conn, 200, "error")
+
       true ->
         OIDC.delete_from_state(state)
         OIDC.request_access_token(conn.query_params)

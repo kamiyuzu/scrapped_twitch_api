@@ -119,7 +119,8 @@ defmodule TwitchApi.OIDC do
   Delete state the Genserver state list
   """
   @spec delete_from_state(binary) :: :ok
-  def delete_from_state(state_to_delete), do: GenServer.cast(__MODULE__, {:delete_state, state_to_delete})
+  def delete_from_state(state_to_delete),
+    do: GenServer.cast(__MODULE__, {:delete_state, state_to_delete})
 
   @doc """
   Add state the Genserver state list
