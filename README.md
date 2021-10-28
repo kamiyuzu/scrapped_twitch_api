@@ -133,7 +133,7 @@ by adding `scrapped_twitch_api` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:scrapped_twitch_api, "~> 0.1.0"}
+    {:scrapped_twitch_api, "~> 0.1.1"}
   ]
 end
 ```

@@ -4,7 +4,7 @@ defmodule TwitchApi.MixProject do
   def project do
     [
       app: :scrapped_twitch_api,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.11",
       description: description(),
       package: package(),
