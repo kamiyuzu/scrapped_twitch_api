@@ -138,12 +138,12 @@ User login name. Multiple login names can be specified. Limit: 100.
 
 We will need to configure in our application [`config/config.exs`](config/config.exs) file the callback url registered in our [twitch_dev_console](https://dev.twitch.tv/console).
 
+First things first you will need the user to authorize your application. For this purpose you will need to make the user go through [oauth_url](http://localhost:8090/oauth?scopes[]=). You will have to specify the scopes required for that user access token as query param array values.
+
 For dealing with the OAuth flow we will have to specify in the `user_info` from the Twitch API requests needing OAuth. The user previously authenticated in our application ID or username is the only information needed.
 
 ```elixir
-iex(1)> TwitchApi.OIDC.browser_user_access_token(["channel:read:stream_key"])
-:ok
-iex(2)> TwitchApi.Streams.GetStreamKey.call(%{broadcaster_id: "61425548"}, %{user_name: "hiimkamiyuzu"}) 
+iex(1)> TwitchApi.Streams.GetStreamKey.call(%{broadcaster_id: "61425548"}, %{user_name: "hiimkamiyuzu"}) 
 {:ok,
  %Finch.Response{
    body: "{\"data\":[{\"stream_key\":\"live_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\"}]}",
