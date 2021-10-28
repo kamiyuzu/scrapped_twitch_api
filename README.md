@@ -138,7 +138,7 @@ User login name. Multiple login names can be specified. Limit: 100.
 
 We will need to configure in our application [`config/config.exs`](config/config.exs) file the callback url registered in our [twitch_dev_console](https://dev.twitch.tv/console).
 
-First things first you will need the user to authorize your application. For this purpose you will need to make the user go through [oauth_url](http://localhost:8090/oauth?scopes[]=). You will have to specify the scopes required for that user access token as query param array values.
+First things first you will need the user to authorize your application. For this purpose you will need to make the user go through [oauth_url](http://localhost:8090/oauth?scopes[]=). You will have to specify the scopes required for that user access token as query param array values. Example: `http://localhost:8090/oauth?scopes[]=channel:read:stream_key`. For more information about working with Twitch scopes please read further in: [scopes_documentation](https://dev.twitch.tv/docs/authentication/#scopes).
 
 For dealing with the OAuth flow we will have to specify in the `user_info` from the Twitch API requests needing OAuth. The user previously authenticated in our application ID or username is the only information needed.
 
